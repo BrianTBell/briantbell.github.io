@@ -1,0 +1,261 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Towbar Audit - Brian Bell Working Portfolio</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="icon" type="image/x-icon" href="/images/cv.png">
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<a href="index.html" class="logo">Go Home</a>
+					</header>
+
+				<!-- Nav -->
+					<nav id="nav">
+						<ul class="links">
+							<li ><a href="index.html">General Info</a></li>
+							<li ><a href="capstone.html">Project 1</a></li>
+							<li ><a href="rover.html">Project 2</a></li>
+							<li class="active"><a href="towbar.html">Project 3</a></li>
+							<!--li ><a href="heat_transfer.html">Project 4</a></li>
+							<li ><a href="web.html">Project 5</a></li-->
+						</ul>
+						<ul class="icons">
+							<li><a href="https://www.linkedin.com/in/brian-t-bell/" target="_blank" class="icon brands fa-linkedin"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Post -->
+							<section class="post">
+								<header class="major">
+									<h1>Towbar Audit</h1>
+									<p>This project investigates the structural integrity of a weld group in a real-world heavy-duty towing application. By combining analytical hand calculations with Finite Element Analysis (FEA) in ANSYS, I performed a comprehensive fatigue assessment to determine the weld’s safety under critical loading conditions. This work showcases my expertise in mechanical design, stress analysis, and computational simulation, providing valuable insights into real-world engineering validation. Explore how theoretical modeling enhances engineering reliability.</p>
+								
+								<div class="image main">
+									<img src="images/towbar_real.jpg" alt="" />
+									<img src="images/towbar_angles.jpg" alt="" />
+								</div>
+								
+								</header>
+								<div>
+									<h3>Project Overview</h3>
+									<p>For this project, I audit the structural integrity of a welded component used in heavy-duty towing applications. Specifically, the study examines the weld group on the tongue of a Hayman Reese towbar fitted to a 2024 Volkswagen Touareg R. The analysis involves both theoretical hand calculations and Finite Element Analysis (FEA) using ANSYS to assess fatigue behavior under real-world loading conditions. A key objective is to evaluate the safety of the weld under varying stress distributions and to compare analytical and computational approaches for result validation. Through this process, critical failure points are identified, and the accuracy of idealized hand calculations versus FEA modeling is examined.</p>
+								</div>
+								<div>
+									<h3>My Role</h3>
+									<p>I worked on this project alone. My role was fairly straightforward: Find a real weld group that undergoes fatigue loading and think of some realistic load cases for it. With these load cases in mind, I needed to determine which was critical and use that load case to audit the safety of the welds. </p>
+								</div>
+								<div>
+									<h3>Technical Skills</h3>
+									<ul>
+										<li><a href="https://www.solidworks.com/">SOLIDWORKS</a>: Modeling, Drafting</li>
+										<li><a href="https://www.ansys.com/products/structures/ansys-mechanical">Ansys Mechanical</a></li>
+										<li><a href="https://www.python.org/">Python</a></li>
+									</ul>
+								</div>
+								<div>
+									<h3>Challenges & Solutions</h3>
+									<p>
+										The primary challenge was determining a valid critical load case for the towbar. I based the project on my uncle’s car and trailer, using my own experience with the trailer and a general idea of where the center of gravity might be. However, I didn’t have a precise understanding of the critical load capacity, which would dictate the maximum weight the trailer could safely carry. Instead of simply looking up this information, I decided to tackle the challenge myself. With several load cases to consider, I needed to use an iterative approach—employing a guess-and-check method to accurately pinpoint the trailer’s critical mass.
+									</p>
+									<p>
+										To expedite this process, I wrote a Python program to automate the calculations for all the potential load cases. This allowed me to input key parameters about the trailer's loading and quickly determine the critical stresses on the towbar’s weld for each load case. Once the code was in place, solving for the critical load case became significantly more efficient. To ensure accuracy, I validated the results through manual calculations and Finite Element Analysis (FEA).
+									</p>
+								</div>
+								<div>
+									<h3>Outcomes & Results</h3>
+									<p>
+										This weld audit focused on assessing the fatigue performance of the Heavy-Duty Hayman Reese Towbar using both hand calculations and finite element analysis (FEA) in ANSYS. Both methods confirmed that the weld group is structurally sound and capable of withstanding the identified critical loading conditions, ensuring ‘infinite life’ under normal use.
+									</p>
+									<p>
+										While discrepancies were observed between hand calculations and FEA results, this was expected. The ANSYS model provided a more conservative estimate due to the inclusion of filleted weld geometry and stress concentrations, whereas hand calculations relied on idealized assumptions. Despite these differences, both approaches validated the weld’s safety. The study also highlighted the importance of using multiple analysis methods for result verification, as neither analytical nor simulation-based techniques should be relied upon in isolation.
+									</p>
+									<p>
+										From a broader perspective, this project reinforced key principles of design auditing. Writing parameterized code for analytical calculations improves efficiency and reduces errors, while rigorous model verification in FEA is crucial for reliable results. Although this audit confirmed the towbar’s safety within its analyzed conditions, further experimental testing and adherence to industry standards would provide additional validation for real-world applications.
+									</p>
+									<p>
+										On a personal level I'm quite proud of my work here, particularly the hand calculations. I have included the key parts of my project working in the dropdown menus below.
+									</p>
+										<details>
+											<summary><i class="fas fa-caret-right"></i> <b><em>Critical Load Case - Hand Working</em></b></summary>
+											<div class="image main">
+												<div id="center-text">
+													<h2><br><u>Analyze Critical Loading</u><br></h2>
+												</div>
+												<img src="images/tb_working/Cornering_Loads.jpg" alt="" />
+												<div id="center-text">
+													<h2><br><br><u>Anaylze Maximum Load Case</u><br></h2>
+												</div>
+												<img src="images/tb_working/wk1.jpg" alt="" />
+												<img src="images/tb_working/wk2.jpg" alt="" />
+												<img src="images/tb_working/wk3.jpg" alt="" />
+												<img src="images/tb_working/wk1.jpg" alt="" />
+												<img src="images/tb_working/wk4.jpg" alt="" />
+												<img src="images/tb_working/wk5.jpg" alt="" />
+												<img src="images/tb_working/wk6.jpg" alt="" />
+												<div id="center-text">
+													<h2><br><br><u>Minimum Load Case</u><br></h2>
+												</div>
+												<img src="images/tb_working/wk7.jpg" alt="" />
+												<img src="images/tb_working/wk8.jpg" alt="" />
+												<img src="images/tb_working/wk9.jpg" alt="" />
+												<div id="center-text">
+													<h2><br><br><u>Solve Maximum Load Stresses</u><br></h2>
+												</div>
+												<img src="images/tb_working/wk10.jpg" alt="" />
+												<img src="images/tb_working/wk11.jpg" alt="" />
+												<img src="images/tb_working/wk12.jpg" alt="" />
+												<img src="images/tb_working/wk13.jpg" alt="" />
+												<img src="images/tb_working/wk14.jpg" alt="" />
+												<div id="center-text">
+													<h2><br><br><u>Solve Minimum Load Stresses</u><br></h2>
+												</div>
+												<img src="images/tb_working/wk15.jpg" alt="" />
+												<img src="images/tb_working/wk16.jpg" alt="" />
+												<img src="images/tb_working/wk17.jpg" alt="" />
+												<div id="center-text">
+													<h2><br><br><u>Determine Weld Throat Sizing</u><br></h2>
+												</div>
+												<img src="images/tb_throat_sizing.jpg" alt="" />
+												<div id="center-text">
+													<h2><br><br><u>Failure Criteria Analysis</u><br></h2>
+												</div>
+												<img src="images/tb_working/wk18.jpg" alt="" />
+												<img src="images/tb_working/wk19.jpg" alt="" />
+												<img src="images/tb_working/wk20.jpg" alt="" />
+												<img src="images/tb_working/wk21.jpg" alt="" />
+												<img src="images/tb_working/wk22.jpg" alt="" />
+										</div>
+									</details>
+
+								<details>
+									<summary><i class="fas fa-caret-right"></i> <b><em>Critical Load Case - ANSYS</em></b></summary>
+									<div id="showcase_image">
+										<div id="center-text">
+											<h4>Minimum Safety Factor - ANSYS</h4>
+										</div>
+										<div class="image main">
+											<img src="images/tb_ansys1.PNG" alt="" />
+										</div>
+									</div>
+									<div id="showcase_image">
+										<div id="center-text">
+											<h4>Critical Equivalent Stress - ANSYS</h4>
+										</div>
+										<div class="image main">
+											<img src="images/tb_ansys2.PNG" alt="" />
+										</div>
+									</div>
+									<div id="showcase_image">
+										<div id="center-text">
+											<h4>Weld Contacts - ANSYS</h4>
+										</div>
+										<div class="image main">
+											<img src="images/tb_weld_contacts.png" alt="" />
+										</div>
+									</div>
+									<div id="showcase_image">
+										<div id="center-text">
+											<h4>Boundary Conditions - ANSYS</h4>
+										</div>
+										<div class="image main">
+											<img src="images/tb_boundary_setup.png" alt="" />
+										</div>
+									</div>
+									<div id="showcase_image">
+										<div id="center-text">
+											<h4>Convergence Study - ANSYS</h4>
+										</div>
+										<div class="image main">
+											<img src="images/tb_convergence.png" alt="" />
+										</div>
+									</div>
+								</div>
+							</details>
+							<details>
+								<summary><i class="fas fa-caret-right"></i> <b><em>Towbar Technical Drawings</em></b></summary>
+								<div id="showcase_image">
+									<div id="center-text">
+										<h4>Tow Ball Drawing</h4>
+									</div>
+									<div id="image main" style="height: 60vh;">
+										<iframe src="images/Tow Ball Drawing.pdf" width="100%" height="100%"></iframe>
+									</div>
+								</div>
+								<div id="showcase_image">
+									<div id="center-text">
+										<h4>Tow Ball Mount Drawing</h4>
+									</div>
+									<div id="image main" style="height: 60vh;">
+										<iframe src="images/Ball Mount Drawing.pdf" width="100%" height="100%"></iframe>
+									</div>
+								</div>
+								<div id="showcase_image">
+									<div id="center-text">
+										<h4>Tow Bar Assembly Drawing</h4>
+									</div>
+									<div id="image main" style="height: 60vh;">
+										<iframe src="images/Full Assembly Drawing.pdf" width="100%" height="100%"></iframe>
+								</div>
+							</div>
+						</details>
+						</section>
+					</div>
+
+				<!-- Footer -->
+				<footer id="footer">
+					<section class="split contact" >
+						<section style="display: flex; align-items: center; gap: 160px; width: 100%; justify-content: flex-start;">
+							<div style="flex-shrink: 0;">
+							  <h3>Email</h3>
+							  <p><a href="mailto:briantbell.work@gmail.com">briantbell.work@gmail.com</a></p>
+							</div>
+						  
+							<div style="flex-shrink: 0;">
+							  <h3>Social</h3>
+							  <ul class="icons alt">
+								<li><a href="https://www.linkedin.com/in/brian-t-bell/" target="_blank" class="icon brands alt fa-linkedin"><span class="label">Linkedin</span></a></li>
+							  </ul>
+							</div>
+							<ul class="actions" style="position: absolute; right: 0; padding-right: 70px;">
+								<li><a href="#header" class="button icon solid solo fa-arrow-up scrolly">Continue</a></li>
+							</ul>
+						</section>
+						
+					</section>
+				</footer>
+
+				<!-- Copyright -->
+					<div id="copyright">
+						<!--ul><li>&copy; Untitled</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li></ul-->
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
