@@ -3699,6 +3699,7 @@ input, select, textarea {
 		width: calc(100% - 4rem);
 		max-width: 72rem;
 		z-index: 2;
+		zoom: .75
 	}
 
 		#nav ul.divided li {
@@ -3845,6 +3846,7 @@ input, select, textarea {
 		width: calc(100% - 4rem);
 		max-width: 72rem;
 		z-index: 2;
+		zoom: .75
 	}
 
 		#main > * {
@@ -4050,6 +4052,7 @@ input, select, textarea {
 		width: calc(100% - 4rem);
 		max-width: 72rem;
 		z-index: 2;
+		zoom: .75
 	}
 
 		#footer input, #footer select, #footer textarea {
