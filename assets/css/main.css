@@ -145,6 +145,7 @@ input, select, textarea {
 
 	body {
 		color: #212931;
+		text-align: justify;
 	}
 
 	body, input, select, textarea {
@@ -177,6 +178,11 @@ input, select, textarea {
 
 	p {
 		text-align: justify;
+		margin: 0 0 2rem 0;
+	}
+
+	footer, p	{
+		text-align: none;
 		margin: 0 0 2rem 0;
 	}
 
@@ -2687,7 +2693,6 @@ input, select, textarea {
 			display: block;
 			margin: 1rem 0;
 			width: 100%;
-			border: 1px solid #555658;
 		}
 
 			.image.main:first-child {
@@ -2904,7 +2909,7 @@ input, select, textarea {
 		}
 
 	ul {
-		list-style: disc;
+
 		margin: 0 0 2rem 0;
 		padding-left: 1rem;
 	}
@@ -3844,7 +3849,7 @@ input, select, textarea {
 
 		#main > * {
 			padding: 4rem 4rem 2rem 4rem ;
-			border-top: solid 2px #eeeeee;
+			border-top: solid 2px #acacac;
 			margin: 0;
 		}
 
@@ -3857,7 +3862,7 @@ input, select, textarea {
 		}
 
 		#main > .post {
-			padding: 8rem 8rem 6rem 8rem ;
+			padding: 7rem 7rem 6rem 7rem ;
 		}
 
 			#main > .post header.major > .date {
@@ -3872,7 +3877,7 @@ input, select, textarea {
 
 			#main > .post.featured {
 				text-align: center;
-				border-color: #eeeeee;
+				border-color: #acacac;
 				border-left-width: 2px;
 				border-style: solid;
 				border-top-width: 2px;
@@ -3882,7 +3887,7 @@ input, select, textarea {
 			@media screen and (max-width: 1280px) {
 
 				#main > .post {
-					padding: 6rem 4rem 4rem 4rem ;
+					padding: 5rem 4rem 4rem 4rem ;
 				}
 
 			}
@@ -3890,7 +3895,7 @@ input, select, textarea {
 			@media screen and (max-width: 736px) {
 
 				#main > .post {
-					padding: 4rem 2rem 2rem 2rem ;
+					padding: 3rem 2rem 2rem 2rem ;
 				}
 
 					#main > .post header.major > .date {
