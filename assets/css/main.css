@@ -2649,7 +2649,7 @@ input, select, textarea {
 			display: block;
 			margin: 0rem auto;
 			width: 100%;
-			max-width: 374px;
+			max-width: 500px;
 			border: 1px solid #555658;
 		}
 
