@@ -1,0 +1,314 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&display=swap');
+
+:root {
+    --primary-color: #e6e6e6;
+    --secondary-color: #454f77; 
+    --background-color: #333333;
+}
+
+/* --- General ---*/
+
+body {
+    background-color: var(--background-color);
+    color: var(--primary-color);
+    font-family: 'Merriweather', sans-serif;
+    margin: 2% 3% 0;
+}
+
+main {
+    margin: 2% 15%;
+}
+
+header {
+    position: relative;
+    display: flex;
+    bottom: 0;
+}
+
+header h3:hover {
+    background-color: var(--secondary-color);
+}
+
+header a.fa-linkedin:hover {
+    color: var(--secondary-color);
+    background-color: var(--primary-color);
+}
+
+header a.fa-envelope:hover {
+    color: var(--secondary-color);
+    background-color: var(--secondary-color);
+}
+
+header h3{
+    padding: 5px 10px;
+    border: solid 2px #cccccc;
+    border-radius: 5px;
+}
+
+footer {
+    text-align: center;
+    font-size: 1rem;
+    font-family: 'Source Sans Pro', sans-serif;
+    padding-bottom: 3%;
+}
+
+h1 {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 3rem;
+    margin: 0;
+}
+
+h2 {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 2rem;
+    margin: 26px 0px;
+}
+
+h3 {
+    font-family: 'Source Sans Pro', sans-serif;
+    margin: 0px;
+}
+
+span {
+    font-size: 1rem;
+}
+
+hr {
+    border: 1px solid var(--background-color);
+    margin-top: 20px;
+}
+
+p {
+    line-height: 1.6;
+}
+
+main p {
+    text-align: justify;
+}
+
+section.project h2 {
+    margin: 0px 0;
+}
+
+div.details {
+    padding: 16px;
+    margin: 0px;
+}
+
+div.details p {
+    margin: 10px 0 0 0 ;
+}
+
+a {
+    color: #E6E6E6;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+a:hover {
+    text-decoration: none;
+    color: var(--primary-color);
+}
+
+footer a {
+    text-decoration: underline;
+}
+
+main a:hover {
+    /*color: #E6E6E6;*/
+    text-decoration: none;
+}
+
+footer .fa-linkedin {
+    font-size: 1rem;
+}
+
+footer .fa-envelope {
+    font-size: 1rem;
+}
+
+.centered {
+    text-align: center;
+}
+
+.project-overview{
+    line-height: 2;
+}
+
+.header-title:hover {
+    color: var(--secondary-color);
+}
+
+.main_hr {
+    margin: 70px 0px;
+}
+
+.header-container {
+    position: absolute;
+    bottom: 9px;
+    right: 0;
+    display: inline-flex;
+    align-items: flex-end;
+    gap: 20px;
+}
+
+.fa-linkedin {
+    font-size: 2.4rem;
+}
+
+.fa-envelope {
+    font-size: 2.4rem;
+}
+
+.project-container {
+    padding: 0px 0px 0px 0%;
+}
+
+.project {
+    margin: 2% 0%;
+    border: solid 2px #cccccc;
+    border-radius: 5px;
+}
+
+.CV {
+    margin: 2% 0%;
+    border: solid 2px #cccccc;
+    border-radius: 5px;
+}
+
+.CV h2 {
+    margin: 0px 0;
+}
+
+.project-details {
+    padding: 16px;
+}
+
+.details {
+    margin: 0% 1%;
+}
+
+.details:hover {
+    background-color: var(--secondary-color);
+}
+
+.footer_p {
+    text-decoration: d;
+}
+
+.contact-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+
+/* --- Skills Section ---*/
+
+#skills {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+
+#skills h2 {
+    color: #333;
+    font-size: 1.5em;
+    margin-bottom: 20px;
+}
+
+.skills-container {
+    padding: 0px 0px 0px 0%;
+}
+
+.skills-container h3 {
+    color: #e6e6e6;
+    font-size: 1.2em;
+    padding: 16px 0px 10px 0px;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+.skill-group {
+    margin-bottom: 20px;
+}
+
+.skill-group .skill {
+    display: inline-block;
+    color: #e6e6e6;
+    margin: 5px 5px 5px 0px; /* 5px top/bottom, 10px left/right */
+    padding: 5px 10px;
+    background-color: #454f77; /* Light gray background */
+    border-radius: 5px; /* Rounded corners */
+}
+
+.divider {
+    border: 0;
+    height: 1px;
+    background: #ddd;
+    margin: 10px 0;
+}
+
+.project-image {
+    display: block;
+    margin: 20px auto;
+    max-width: 80%;
+    border: 1px solid var(--background-color);
+    border-radius: 5px;
+}
+
+
+/* About Me Section */
+
+.profile-pic {
+    display: block;
+    width: 100%;
+    max-width: 500px;
+    border: 1px solid var(--background-color);
+    border-radius: 5px;
+}
+
+.about-me-details {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    gap: 20px;
+}
+
+.about-me-details img {
+    margin: 20px 0px 20px 20px;
+}
+
+.profile-text {
+    display: block;
+    padding-right: 20px;
+    text-align: justify;
+    font-size: 1.2rem;
+    gap: 20px;
+    
+}
+
+@media (max-width: 768px) {
+    main {
+        margin: 2% 5%;
+    }
+
+    .profile-pic {
+        width: calc(100% - 40px); /* Account for 20px left + 20px right margin */
+        max-width: 100%;
+        border: 1px solid var(--background-color);
+        border-radius: 5px;
+        margin: 20px auto ; /* Center horizontally, 20px top/bottom */
+        box-sizing: border-box;
+    }
+
+    .about-me-details {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .about-me-details p {
+        margin: 0px 20px 20px;
+    }
+}
