@@ -35,7 +35,7 @@ header a.fa-linkedin:hover {
     background-color: var(--primary-color);
     transition: background-color 0.3s ease;
     border: 0px;
-    border-radius: 5px;
+    border-radius: 5px; 
 }
 
 header a.fa-envelope:hover {
