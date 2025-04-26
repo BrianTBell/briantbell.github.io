@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather DB - Brian Bell Engineering</title>
+    <!--CSS-->
+    <link rel="stylesheet" href="assets/style.css">
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="images/favicon/favicon.ico" sizes="16x16 32x32 64x64">
+    <link rel="icon" type="image/png" href="images/favicon/android-chrome-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="images/favicon/android-chrome-512x512.png" sizes="512x512">
+    <link rel="apple-touch-icon" href="images/favicon/apple-touch-icon.png" sizes="180x180">
+    <link rel="manifest" href="images/favicon/manifest.json">
+    <!--Other Refs-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />   
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Brian Bell</h1>
+        <div class="header-container">
+            <h3><a href="index.html">Go Home</a></h3>
+            <h3><a href="assets/Brian_Bell_CV.pdf" download title="Download Brian Bell's CV">Download My CV</a></h3>
+            <a href="https://www.linkedin.com/in/brian-t-bell/" target="_blank" class="icon fa-brands fa-linkedin"></a>
+            
+        </div>
+    </header>
+    <!--nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav-->
+    <main>
+        <!--Overview Section-->
+        <section>
+            <hr>
+            <h2>Weather Database</h2>
+            <p class="project-overview">The MWA Weather Scraper is an automated system I built to collect daily weather data from 200+ publicly available sources across Queensland and select locations in New South Wales, developed during my internship at MWA Environmental. Using Python, MySQL, and Apache, it scrapes weather info from various stations, processes it, and stores it in a local database hosted on a private server. I designed this tool to eliminate manual data collection, providing efficient access to real-time weather insights.. It updates itself daily, keeping things fresh without piling up historical records.</p>
+            <div class="skills-container">
+                <hr>
+                <h2 style="padding-top: 0px;">Relevant Skills</h2>
+                <div class="skill-group">
+                    <span class="skill">Python</span>
+                    <span class="skill">MySQL</span>
+                    <span class="skill">Apache</span>
+                    <span class="skill">Batch Script</span>
+                    <span class="skill">Project Management</span>
+                </div>
+            </div>
+        </section>
+        <!--Outcomes Section-->
+        <section>
+            <hr>
+            <h2>Outcomes</h2>
+            <p class="project-overview">The Weather Scraper now reliably collects and stores daily weather data from hunderds or reports, delivering a valuable resource for MWA engineers. The system runs autonomously, updating the database each day with minimal oversight. Error logs confirm its stability, with few issues post-setup. By automating data collection, the project saves time and ensures engineers have immediate access to current weather insights via the Apache server.</p>
+            <!--Code-->
+            <section class="project">
+                <div class="project-details">
+                    <h2>Code Snippet</h2>
+                    <p class="project-overview">Example of Python code used to source daily weather data for the office server.</p>
+                    <img src="images/weather/codeExample.png" alt="" class="project-image"/>
+                </div>
+            </section>
+            <!--Web Data-->
+            <section class="project">
+                <div class="project-details">
+                    <h2>Server Data</h2>
+                    <p class="project-overview">Sourced data contains several useful metrics in the form of 30-minute rolling data. All data is accessible as shown on an in house server.</p>
+                    <img src="images/weather/web_data.png" alt="" class="project-image"/>
+                </div>
+            </section>
+            <!--Station Map-->
+            <section class="project">
+                <div class="project-details">
+                    <h2>Interactive Station Map</h2>
+                    <p class="project-overview">Daily weather data is accessible for 200+ stations.</p>
+                    <img src="images/weather/weather_map.png" alt="" class="project-image"/>
+                </div>
+            </section>
+            <!--Graph-->
+            <section class="project">
+                <div class="project-details">
+                    <h2>Temperature Trend Graph</h2>
+                    <p class="project-overview">Useful insights for acoustic analysis can be dervied from historical weather data.</p>
+                    <img src="images/weather/tempGraph.png" alt="" class="project-image"/>
+                </div>
+            </section>
+            <br>
+            <h3>Disclaimer</h3>
+            <p>This project was developed for educational and internal use only. It accesses publicly available weather data in compliance with the respective websites’ terms of service. No data is redistributed or used for commercial purposes.</p>
+        </section>
+    </main>
+    <footer>
+        <div>
+            <hr>
+            <h4>-- Contact Information --</h4>
+        </div>
+        <div>
+            <!--Email-->
+            <p><i class="icon fa-solid fa-envelope" style="text-decoration: none;"></i>  <a href="mailto:briantbell.work@gmail.com">briantbell.work@gmail.com</a></p>
+            <!--Linkedin -->
+            <p><i class="icon fa-brands fa-linkedin" style="text-decoration: none;"></i>  <a href="https://www.linkedin.com/in/brian-t-bell">linkedin.com/in/brian-t-bell</a></p>
+            <p>Relocating to Tampa, FL – July 2025.</p>
+        </div>
+    </footer>
+</body>
+</html>
