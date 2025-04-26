@@ -301,6 +301,24 @@ footer .fa-envelope {
         margin: 2% 5%;
     }
 
+    header {
+        display: block;
+    }
+
+    header h3{
+        padding: 5px 10px;
+        border: solid 2px #cccccc;
+        border-radius: 5px;
+        font-size: .9rem;
+    }
+
+    .header-container {
+        position: relative;
+        display: flex;
+        bottom: 0;
+    }
+
+    
     .profile-pic {
         width: calc(100% - 40px); /* Account for 20px left + 20px right margin */
         max-width: 100%;
@@ -319,5 +337,9 @@ footer .fa-envelope {
 
     .about-me-details p {
         margin: 0px 20px 20px;
+    }
+
+    p {
+        font-size: .9rem;
     }
 }
