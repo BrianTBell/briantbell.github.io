@@ -98,6 +98,7 @@ ul, ol {
 li {
     margin: 0 0 2rem 0; /* vertical spacing between items */
     padding: 0;
+    text-align: justify;
 }
 
 main p {
