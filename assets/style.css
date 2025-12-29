@@ -89,6 +89,17 @@ p {
     line-height: 1.6;
 }
 
+ul, ol {
+    margin: 0;
+    padding: 0;
+    list-style-position: inside;
+}
+
+li {
+    margin: 0 0 0.75rem 0; /* vertical spacing between items */
+    padding: 0;
+}
+
 main p {
     text-align: justify;
 }
