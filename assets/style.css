@@ -100,6 +100,11 @@ li {
     text-align: justify !important; 
 }
 
+summary {
+  list-style: none;
+  cursor: pointer;
+}
+
 main p {
     text-align: justify;
 }
