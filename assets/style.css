@@ -95,7 +95,7 @@ ul, ol {
 }
 
 li {
-    margin: 0 0 .25rem 0 !important; /* vertical spacing between items */
+    margin: 0 0 1.0rem 0 !important; /* vertical spacing between items */
     padding: 0;
     text-align: justify !important; 
 }
