@@ -109,6 +109,10 @@ summary h2 {
     display: inline
 }
 
+summary::-webkit-details-marker {
+  margin-right: 1rem;
+}
+
 main p {
     text-align: justify;
 }
