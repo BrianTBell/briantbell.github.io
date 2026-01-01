@@ -101,8 +101,8 @@ li {
 }
 
 summary {
-  list-style: none;
-  cursor: pointer;
+    list-style-position: inside;
+    display: list-item;
 }
 
 main p {
