@@ -105,6 +105,10 @@ summary {
     display: list-item;
 }
 
+summary h2 {
+    display: inline
+}
+
 main p {
     text-align: justify;
 }
