@@ -90,14 +90,15 @@ p {
 }
 
 ul, ol {
-    margin: 1rem;
-    padding: 0;
+    padding-left: 0;   /* removes indent */
+    margin-left: 0;
 }
 
 li {
-    margin: 0 0 1.0rem 2.0rem !important; /* vertical spacing between items */
+    margin: 0 0 1.0rem 0 !important; /* vertical spacing between items */
     padding: 0;
     text-align: justify !important; 
+    list-style-position: inside;
 }
 
 summary {
