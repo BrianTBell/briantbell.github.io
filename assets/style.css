@@ -16,7 +16,7 @@ body {
 }
 
 main {
-    margin: 2% 15%;
+    margin: 2% 12%;
 }
 
 header {
@@ -92,13 +92,15 @@ p {
 ul, ol {
     padding-left: 0;   /* removes indent */
     margin-left: 0;
+    list-style-position: outside !important;
+    padding-left: 18px;
 }
 
 li {
     margin: 0 0 1.0rem 0 !important; /* vertical spacing between items */
     padding: 0;
     text-align: justify !important; 
-    list-style-position: inside;
+    
 }
 
 summary {
@@ -268,12 +270,20 @@ footer .fa-envelope {
 
 .skill-group .skill {
     display: inline-block;
-    color: #e6e6e6;
+    color: var(--primary-color);
     margin: 5px 5px 5px 0px; /* 5px top/bottom, 10px left/right */
     padding: 5px 10px;
     background-color: #454f77; /* Light gray background */
     border-radius: 5px; /* Rounded corners */
 }
+
+#s1 { background-color: #5E6FAE; }  /* darker than #7180B9 */
+#s2 { background-color: #048A81; }  /* keep */
+#s3 { background-color: #5E8F1A; }  /* darker lime to support white text */
+#s4 { background-color: #E64E55; }  /* slightly darker red */
+#s5 { background-color: #A85A99; }  /* slightly darker purple */
+#s6 { background-color: #C98F00; }  /* darker gold to support white text */
+#s7 { background-color: #E35C18; }  /* slightly darker orange */
 
 .divider {
     border: 0;
@@ -319,6 +329,33 @@ footer .fa-envelope {
     font-size: 1.2rem;
     gap: 20px;
     
+}
+
+/* Experience Container: Flexbox Layout */
+.experience-container {
+    display: flex;
+    flex-wrap: wrap; /* Allows for wrapping on smaller screens */
+    gap: 30px; /* Space between the two columns */
+}
+
+/* Experience Column: Each takes up half the width */
+.experience-column {
+    flex: 1 1 45%; /* Each column takes up 45% of the available space */
+    padding: 0px 10px;
+    box-sizing: border-box;
+}
+
+/* Header Styling for Sections */
+h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+/* Adjust for smaller screens (stack the columns) */
+@media (max-width: 1080px) {
+    .experience-column {
+        flex: 1 1 100%; /* Stack columns on smaller screens */
+    }
 }
 
 @media (max-width: 768px) {
@@ -367,4 +404,10 @@ footer .fa-envelope {
     p {
         font-size: .9rem;
     }
+}
+
+@media (max-width: 1920px) {
+    main {
+    margin: 2% 5%;
+}
 }
