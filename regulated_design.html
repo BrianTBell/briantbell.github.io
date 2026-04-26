@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Regulated hardware design and release capability case study by Brian Bell." />
+  <title>Regulated Hardware Design & Release | Brian Bell</title>
+  <style>
+    :root {
+      --bg: #f5f5f7;
+      --card: #ffffff;
+      --card-soft: #fbfbfd;
+      --text: #1d1d1f;
+      --muted: #6e6e73;
+      --muted-2: #86868b;
+      --line: rgba(0, 0, 0, 0.08);
+      --line-strong: rgba(0, 0, 0, 0.14);
+      --blue: #0071e3;
+      --blue-soft: #e8f2ff;
+      --green: #24a148;
+      --orange: #f56300;
+      --orange-soft: #fff1e8;
+      --purple: #7e57ff;
+      --purple-soft: #f0edff;
+      --radius-xl: 34px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --shadow: 0 24px 60px rgba(0, 0, 0, 0.08);
+      --max: 1080px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      background: var(--bg);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .wrap {
+      width: min(var(--max), calc(100% - 44px));
+      margin: 0 auto;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid var(--line);
+      background: rgba(245, 245, 247, 0.78);
+      backdrop-filter: saturate(180%) blur(22px);
+    }
+
+    .nav-inner {
+      min-height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      font-size: 0.95rem;
+      font-weight: 650;
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .menu-toggle {
+      display: none;
+      width: 40px;
+      height: 40px;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 4px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.68);
+      color: var(--text);
+      cursor: pointer;
+      transition: 160ms ease;
+    }
+
+    .menu-toggle:hover {
+      border-color: var(--line-strong);
+      background: #fff;
+    }
+
+    .menu-toggle span {
+      width: 16px;
+      height: 2px;
+      border-radius: 999px;
+      background: currentColor;
+      transition: 160ms ease;
+    }
+
+    .menu-toggle[aria-expanded="true"] span:nth-child(1) {
+      transform: translateY(6px) rotate(45deg);
+    }
+
+    .menu-toggle[aria-expanded="true"] span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-toggle[aria-expanded="true"] span:nth-child(3) {
+      transform: translateY(-6px) rotate(-45deg);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 520;
+    }
+
+    .nav-links a {
+      padding: 9px 10px;
+      border-radius: 999px;
+      transition: 160ms ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+      background: rgba(0, 0, 0, 0.045);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .icon-link {
+      height: 34px;
+      min-width: 34px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.68);
+      color: var(--text);
+      font-size: 0.82rem;
+      font-weight: 560;
+      transition: 160ms ease;
+    }
+
+    .icon-link.text {
+      padding: 0 12px;
+    }
+
+    .icon-link:hover {
+      border-color: var(--line-strong);
+      background: #fff;
+      transform: translateY(-1px);
+    }
+
+    .icon-link svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .button {
+      min-height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 16px;
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--text);
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: -0.015em;
+      transition: 160ms ease;
+    }
+
+    .button.primary {
+      border-color: var(--blue);
+      background: var(--blue);
+      color: white;
+    }
+
+    .button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+    }
+
+    .hero { padding: 88px 0 44px; }
+
+    .breadcrumb {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 28px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      font-weight: 560;
+    }
+
+    .breadcrumb:hover { color: var(--blue); }
+
+    .hero-card,
+    .panel,
+    .stat-card,
+    .project-media-card,
+    .next-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      background: var(--card);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 340px;
+      gap: 30px;
+      padding: clamp(28px, 5vw, 54px);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      width: 360px;
+      height: 360px;
+      right: -145px;
+      bottom: -155px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(0, 113, 227, 0.17), rgba(0, 113, 227, 0.04) 48%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-main {
+      min-width: 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-side {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 16px;
+      align-content: end;
+    }
+
+    .tag {
+      width: fit-content;
+      display: inline-flex;
+      align-items: center;
+      min-height: 31px;
+      padding: 0 12px;
+      border-radius: 999px;
+      background: var(--orange-soft);
+      color: var(--orange);
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .tag.blue { background: var(--blue-soft); color: var(--blue); }
+    .tag.green { background: #eaf8ee; color: var(--green); }
+    .tag.purple { background: var(--purple-soft); color: var(--purple); }
+
+    h1, h2, h3, p { margin-top: 0; }
+
+    h1 {
+      max-width: 800px;
+      margin: 22px 0 22px;
+      font-size: clamp(3.2rem, 7.5vw, 6.7rem);
+      line-height: 0.92;
+      letter-spacing: -0.084em;
+      font-weight: 760;
+    }
+
+    .lede {
+      max-width: 730px;
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: clamp(1.12rem, 1.8vw, 1.35rem);
+      line-height: 1.52;
+      letter-spacing: -0.035em;
+      font-weight: 430;
+    }
+
+    .hero-meta {
+      display: grid;
+      align-content: end;
+      gap: 0;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: var(--card-soft);
+      padding: 0 20px;
+    }
+
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 15px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .meta-row:last-child { border-bottom: 0; }
+
+    .meta-row span:first-child {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .meta-row span:last-child {
+      color: var(--text);
+      font-size: 0.92rem;
+      font-weight: 650;
+      text-align: right;
+    }
+
+    .project-media { padding: 8px 0 42px; }
+
+    .project-media-card { padding: 18px; }
+
+    .media-frame {
+      min-height: 420px;
+      aspect-ratio: 16 / 9;
+      border: 1px solid var(--line);
+      border-radius: calc(var(--radius-xl) - 12px);
+      background: var(--card-soft);
+      overflow: hidden;
+    }
+
+    .media-frame img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: 420px;
+      object-fit: cover;
+    }
+
+    .media-placeholder {
+      min-height: 420px;
+      height: 100%;
+      display: none;
+      place-items: center;
+      padding: 32px;
+      text-align: center;
+      background: linear-gradient(180deg, #fcfcfe 0%, #f3f6fb 100%);
+      color: var(--muted);
+    }
+
+    .media-placeholder-inner { max-width: 300px; }
+
+    .media-placeholder-icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 16px;
+      display: grid;
+      place-items: center;
+      border-radius: 19px;
+      background: var(--orange-soft);
+      color: var(--orange);
+      font-size: 1.25rem;
+      font-weight: 750;
+    }
+
+    .media-placeholder p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.5;
+      letter-spacing: -0.02em;
+    }
+
+    section { padding: 42px 0; }
+
+    .section-grid {
+      display: grid;
+      grid-template-columns: 270px minmax(0, 1fr);
+      gap: 22px;
+      align-items: start;
+    }
+
+    .section-label {
+      position: sticky;
+      top: 88px;
+      color: var(--muted-2);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+
+    .panel { padding: 32px; }
+    .panel + .panel { margin-top: 16px; }
+
+    h2 {
+      margin-bottom: 18px;
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      line-height: 0.98;
+      letter-spacing: -0.07em;
+      font-weight: 740;
+    }
+
+    h3 {
+      margin-bottom: 10px;
+      font-size: 1.35rem;
+      line-height: 1.12;
+      letter-spacing: -0.045em;
+      font-weight: 720;
+    }
+
+    .panel p,
+    .panel li,
+    .next-card p {
+      color: var(--muted);
+      font-size: 1.02rem;
+      line-height: 1.62;
+      letter-spacing: -0.026em;
+    }
+
+    .panel p:last-child { margin-bottom: 0; }
+    .panel p + p { margin-top: 16px; }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .mini-card {
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: var(--card-soft);
+    }
+
+    .mini-card h3 { margin-bottom: 8px; }
+    .mini-card p { font-size: 0.98rem; }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .stat-card {
+      padding: 22px;
+      box-shadow: none;
+    }
+
+    .stat-card strong {
+      display: block;
+      margin-bottom: 7px;
+      font-size: 2.1rem;
+      line-height: 1;
+      letter-spacing: -0.06em;
+      font-weight: 760;
+    }
+
+    .stat-card span {
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.35;
+      font-weight: 560;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .timeline-row {
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      gap: 22px;
+      padding: 22px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .phase {
+      color: var(--muted-2);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .timeline-row h3 { margin: 0 0 7px; }
+    .timeline-row p { margin: 0; }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 22px;
+    }
+
+    .chip {
+      min-height: 31px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.035);
+      color: var(--text);
+      font-size: 0.84rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    .callout {
+      padding: 20px;
+      border: 1px solid rgba(245, 99, 0, 0.22);
+      border-radius: var(--radius-lg);
+      background: var(--orange-soft);
+    }
+
+    .callout p {
+      margin: 0;
+      color: #6d3210;
+    }
+
+    .next { padding: 56px 0 88px; }
+
+    .next-card {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 28px;
+      align-items: center;
+      padding: 32px;
+      background: linear-gradient(145deg, #ffffff, #f7fbff);
+    }
+
+    .next-card h2 {
+      margin-bottom: 12px;
+      font-size: clamp(2rem, 4vw, 3.4rem);
+    }
+
+    footer {
+      padding: 30px 0;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    @media (max-width: 900px) {
+      .hero-card,
+      .section-grid,
+      .next-card {
+        grid-template-columns: 1fr;
+      }
+
+      .section-label { position: static; }
+      .hero-side { grid-template-columns: 1fr; }
+      .two-col, .stat-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 680px) {
+      .wrap { width: min(100% - 28px, var(--max)); }
+
+      .nav-inner {
+        position: relative;
+      }
+
+      .menu-toggle {
+        display: inline-flex;
+      }
+
+      .nav-right {
+        position: absolute;
+        top: calc(100% + 10px);
+        left: 0;
+        right: 0;
+        display: grid;
+        gap: 12px;
+        padding: 14px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius-lg);
+        background: rgba(255, 255, 255, 0.96);
+        box-shadow: var(--shadow);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transform: translateY(-8px);
+        transition: 160ms ease;
+      }
+
+      .nav-right.open {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: translateY(0);
+      }
+
+      .nav-links {
+        display: grid;
+        gap: 4px;
+        width: 100%;
+      }
+
+      .nav-links a {
+        padding: 12px 14px;
+        border-radius: 14px;
+      }
+
+      .nav-actions {
+        justify-content: space-between;
+        padding-top: 12px;
+        border-top: 1px solid var(--line);
+      }
+
+      .hero { padding: 52px 0 28px; }
+
+      .hero-card,
+      .panel,
+      .project-media-card,
+      .next-card {
+        padding: 24px;
+        border-radius: 26px;
+      }
+
+      h1 { font-size: clamp(3.3rem, 16vw, 5rem); }
+      section { padding: 34px 0; }
+
+      .media-frame,
+      .media-frame img,
+      .media-placeholder {
+        min-height: 260px;
+      }
+
+      .timeline-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  
+    /* Unified dropdown navbar */
+    .menu-toggle {
+      display: none;
+      width: 38px;
+      height: 38px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.68);
+      color: var(--text);
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 4px;
+      transition: 160ms ease;
+    }
+
+    .menu-toggle:hover {
+      border-color: var(--line-strong);
+      background: #fff;
+      transform: translateY(-1px);
+    }
+
+    .menu-toggle span {
+      width: 16px;
+      height: 2px;
+      border-radius: 999px;
+      background: currentColor;
+      transition: transform 180ms ease, opacity 180ms ease;
+    }
+
+    .menu-toggle[aria-expanded="true"] span:nth-child(1) {
+      transform: translateY(6px) rotate(45deg);
+    }
+
+    .menu-toggle[aria-expanded="true"] span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-toggle[aria-expanded="true"] span:nth-child(3) {
+      transform: translateY(-6px) rotate(-45deg);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .icon-link {
+      height: 34px;
+      min-width: 34px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.68);
+      color: var(--text);
+      font-size: 0.82rem;
+      font-weight: 560;
+      transition: 160ms ease;
+    }
+
+    .icon-link.text {
+      padding: 0 12px;
+    }
+
+    .icon-link:hover {
+      border-color: var(--line-strong);
+      background: #fff;
+      transform: translateY(-1px);
+    }
+
+    .icon-link svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .projects-dropdown {
+      position: relative;
+    }
+
+    .projects-toggle {
+      height: 34px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      padding: 9px 10px;
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      color: inherit;
+      font: inherit;
+      font-weight: inherit;
+      cursor: pointer;
+      transition: 160ms ease;
+    }
+
+    .projects-toggle:hover,
+    .projects-dropdown.open .projects-toggle {
+      color: var(--text);
+      background: rgba(0, 0, 0, 0.045);
+    }
+
+    .projects-toggle svg {
+      width: 15px;
+      height: 15px;
+      transition: transform 160ms ease;
+    }
+
+    .projects-dropdown.open .projects-toggle svg {
+      transform: rotate(180deg);
+    }
+
+    .projects-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      min-width: 230px;
+      display: grid;
+      gap: 4px;
+      padding: 8px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.96);
+      box-shadow: var(--shadow);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translateY(-6px);
+      transition: 160ms ease;
+    }
+
+    .projects-dropdown.open .projects-menu,
+    .projects-dropdown:hover .projects-menu {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .projects-menu a {
+      display: block;
+      padding: 11px 12px;
+      border-radius: 12px;
+      color: var(--text);
+      white-space: nowrap;
+    }
+
+    .projects-menu a:hover {
+      background: rgba(0, 0, 0, 0.045);
+    }
+
+    @media (max-width: 720px) {
+      .nav-inner {
+        min-height: 58px;
+        flex-wrap: wrap;
+        gap: 0;
+        padding: 10px 0;
+      }
+
+      .menu-toggle {
+        display: inline-flex;
+      }
+
+      .nav-right {
+        display: none;
+        flex-basis: 100%;
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        padding: 10px 0 4px;
+      }
+
+      .nav-right.open {
+        display: flex;
+      }
+
+      .nav-links {
+        display: flex !important;
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        gap: 4px;
+        font-size: 0.94rem;
+      }
+
+      .nav-links > a,
+      .projects-toggle {
+        width: 100%;
+        min-height: 46px;
+        justify-content: space-between;
+        padding: 13px 14px;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.52);
+        border: 1px solid transparent;
+        color: var(--muted);
+      }
+
+      .nav-links > a:hover,
+      .projects-toggle:hover,
+      .projects-dropdown.open .projects-toggle {
+        color: var(--text);
+        background: #fff;
+        border-color: var(--line);
+      }
+
+      .projects-dropdown {
+        width: 100%;
+      }
+
+      .projects-menu {
+        position: static;
+        min-width: 0;
+        width: 100%;
+        margin-top: 4px;
+        padding: 4px 0 0 14px;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none;
+        display: none;
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: none;
+      }
+
+      .projects-dropdown.open .projects-menu {
+        display: grid;
+      }
+
+      .projects-menu a {
+        padding: 11px 14px;
+        border-radius: 14px;
+        color: var(--muted);
+        background: rgba(255, 255, 255, 0.38);
+      }
+
+      .projects-menu a:hover {
+        color: var(--text);
+        background: #fff;
+      }
+
+      .nav-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        width: 100%;
+      }
+
+      .icon-link {
+        height: 42px;
+        border-radius: 16px;
+      }
+
+      .icon-link.text {
+        display: inline-flex !important;
+      }
+    }
+
+    @media (min-width: 721px) {
+      .nav-right {
+        display: flex !important;
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="wrap nav-inner">
+      <a href="#top" class="brand">Brian Bell</a>
+
+      <button class="menu-toggle" type="button" aria-label="Open navigation" aria-controls="site-menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <div class="nav-right" id="site-menu">
+        <div class="nav-links" aria-label="Primary navigation">
+          <a href="index.html">Home</a>
+
+          <div class="projects-dropdown">
+            <button class="projects-toggle" type="button" aria-label="Open projects menu" aria-controls="projects-menu" aria-expanded="false">
+              <span>Projects</span>
+              <svg viewBox="0 0 20 20" aria-hidden="true">
+                <path d="M5.5 7.5 10 12l4.5-4.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+
+            <div class="projects-menu" id="projects-menu">
+              <a href="cobot.html">Cobot Workcell</a>
+              <a href="regulated_design.html">Regulated Design</a>
+              <a href="index.html#projects">Regulated Manufacturing</a>
+            </div>
+          </div>
+
+          <a href="assets/Brian_Bell_CV.pdf" target="_blank">Resume</a>
+          <a href="about.html">About Me</a>
+        </div>
+
+        <div class="nav-actions" aria-label="Contact links">
+          <a class="icon-link" href="https://www.linkedin.com/in/brian-t-bell/" target="_blank" rel="noreferrer" aria-label="LinkedIn profile">
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.32 8.02h4.36V23H.32V8.02zM8.05 8.02h4.18v2.05h.06c.58-1.1 2-2.26 4.12-2.26 4.41 0 5.22 2.9 5.22 6.67V23h-4.36v-7.56c0-1.8-.03-4.12-2.51-4.12-2.51 0-2.9 1.96-2.9 3.99V23H8.05V8.02z" transform="translate(1 0)" /></svg>
+          </a>
+          <a class="icon-link text" href="mailto:briantbell.work@gmail.com">Email</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main id="top">
+    <header class="hero">
+      <div class="wrap">
+        <a class="breadcrumb" href="index.html#projects">← Back to projects</a>
+
+        <article class="hero-card">
+          <div class="hero-main">
+            <span class="tag">Capability Case Study</span>
+            <h1>Regulated Hardware Design &amp; Release</h1>
+            <p class="lede">A generalized capability case study covering regulated defense electromechanical hardware work across concept development, mechanical ownership, prototyping, verification support, controlled release, and production handoff.</p>
+          </div>
+
+          <div class="hero-side">
+            <aside class="hero-meta" aria-label="Capability metadata">
+              <div class="meta-row"><span>Role</span><span>Lead Engineer / Mechanical Owner</span></div>
+              <div class="meta-row"><span>Domain</span><span>Defense Electromechanical Hardware</span></div>
+              <div class="meta-row"><span>Scope</span><span>Concept → Prototype → Release</span></div>
+              <div class="meta-row"><span>Environment</span><span>Controlled Engineering</span></div>
+            </aside>
+          </div>
+        </article>
+      </div>
+    </header>
+
+    <!--section class="project-media" aria-label="Capability image">
+      <div class="wrap">
+        <article class="project-media-card">
+          <div class="media-frame">
+            <img
+              src="images/regulated-hardware/hero.jpg"
+              alt="Regulated electromechanical hardware design and release work"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';"
+            />
+            <div class="media-placeholder">
+              <div class="media-placeholder-inner">
+                <div class="media-placeholder-icon">⌁</div>
+                <p>Add a generalized project image, CAD render, test setup, fixture photo, or non-sensitive hardware detail here.</p>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section-->
+
+    <section>
+      <div class="wrap section-grid">
+        <div class="section-label">Overview</div>
+        <div>
+          <article class="panel">
+            <h2>Capability summary</h2>
+            <p>I led the design, redesign, and prototyping of regulated defense electromechanical hardware, serving as the lead engineer and primary mechanical owner across the effort. My scope covered enclosures, assemblies, mechanisms, fixtures, interfaces, subsystem integration, and controlled release requirements.</p>
+            <p>I owned the work from concept development through prototype build, troubleshooting, verification support, and production handoff. Specific program details are intentionally generalized due to the regulated nature of the work.</p>
+          </article>
+
+          <div class="stat-grid">
+            <div class="stat-card"><strong>Lead</strong><span>Primary mechanical ownership across regulated hardware execution</span></div>
+            <div class="stat-card"><strong>Full</strong><span>Concept, CAD, prototype, verification support, release, and handoff scope</span></div>
+            <div class="stat-card"><strong>Ready</strong><span>Released designs and production-ready hardware packages</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap section-grid">
+        <div class="section-label">Challenge</div>
+        <article class="panel">
+          <h2>The engineering challenge</h2>
+          <p>Regulated hardware programs require more than successful design intent. The work must move from concept to physical build while maintaining fit, function, manufacturability, documentation control, supplier readiness, verification evidence, and production handoff discipline.</p>
+          <p>The practical challenge was executing quickly across mechanical design, sourcing, prototype build, troubleshooting, test support, and release documentation while maintaining the rigor expected in a controlled engineering environment.</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap section-grid">
+        <div class="section-label">Scope</div>
+        <article class="panel">
+          <h2>What I owned</h2>
+          <div class="two-col">
+            <div class="mini-card">
+              <h3>Design &amp; Release</h3>
+              <p>Created and maintained SolidWorks models, drawings, part records, MBOMs, ECNs, and release documentation within a controlled engineering environment.</p>
+            </div>
+            <div class="mini-card">
+              <h3>Sourcing &amp; Build</h3>
+              <p>Drove part creation, supplier sourcing, RFQs, technical supplier coordination, procurement follow-up, manufacturability resolution, prototype assembly, and fit/function troubleshooting.</p>
+            </div>
+          </div>
+          <div class="chips">
+            <span class="chip">Mechanical Ownership</span>
+            <span class="chip">SolidWorks</span>
+            <span class="chip">Drawings</span>
+            <span class="chip">MBOMs</span>
+            <span class="chip">ECNs</span>
+            <span class="chip">Supplier Coordination</span>
+            <span class="chip">Prototype Build</span>
+            <span class="chip">Verification Support</span>
+            <span class="chip">Production Handoff</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap section-grid">
+        <div class="section-label">Execution</div>
+        <article class="panel">
+          <h2>Approach</h2>
+          <div class="timeline">
+            <div class="timeline-row">
+              <div class="phase">01 · Define</div>
+              <div><h3>Concept, interfaces, and subsystem scope</h3><p>Defined and refined mechanical scope across enclosures, assemblies, mechanisms, fixtures, interfaces, subsystem integration needs, and controlled release requirements.</p></div>
+            </div>
+            <div class="timeline-row">
+              <div class="phase">02 · Design</div>
+              <div><h3>CAD, drawings, records, and release structure</h3><p>Created and maintained SolidWorks models, drawings, part records, MBOMs, ECNs, and supporting release documentation needed for controlled engineering execution.</p></div>
+            </div>
+            <div class="timeline-row">
+              <div class="phase">03 · Build</div>
+              <div><h3>Hands-on prototype execution</h3><p>Personally built prototypes, validated assembly procedures, resolved fit and function issues, and acted as the technician when required to keep the program moving.</p></div>
+            </div>
+            <div class="timeline-row">
+              <div class="phase">04 · Verify</div>
+              <div><h3>Test planning and documentation</h3><p>Planned and documented verification activities including functional testing, environmental testing, reliability evaluation, and fit checks.</p></div>
+            </div>
+            <div class="timeline-row">
+              <div class="phase">05 · Handoff</div>
+              <div><h3>Manufacturing readiness and production transition</h3><p>Closed open design and manufacturing issues, supported procurement readiness, finalized controlled documentation, and prepared hardware packages for production handoff.</p></div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap section-grid">
+        <div class="section-label">Verification</div>
+        <article class="panel">
+          <h2>Test and release support</h2>
+          <p>I planned and documented verification activities for regulated hardware, including functional testing, environmental testing, reliability evaluation, and fit checks. This work supported controlled engineering decisions, manufacturing readiness, and release confidence.</p>
+          <p>The emphasis was practical and evidence-driven: validate that the hardware could be built, assembled, tested, documented, and transitioned into production with open issues resolved.</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap section-grid">
+        <div class="section-label">Result</div>
+        <article class="panel">
+          <h2>Outcome</h2>
+          <p>The work resulted in released designs, validated prototypes, completed test documentation, resolved manufacturing issues, and production-ready hardware packages for regulated programs.</p>
+          <div class="callout" style="margin-top: 22px;">
+            <p><strong>Confidentiality note:</strong> specific program names, product details, customer details, and controlled technical information are intentionally generalized because this work supported regulated defense programs.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="next">
+      <div class="wrap">
+        <article class="next-card">
+          <div>
+            <h2>More work</h2>
+            <p>Return to the main portfolio to view additional work across robotics R&amp;D, regulated hardware execution, automation, and test/release support.</p>
+          </div>
+          <a class="button primary" href="index.html#projects">All Projects</a>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <span>© <span id="year"></span> Brian Bell</span>
+      <span>Engineering Portfolio</span>
+    </div>
+  </footer>
+
+  <script>
+    const yearEl = document.getElementById("year");
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+    (() => {
+      const menuToggle = document.querySelector(".menu-toggle");
+      const siteMenu = document.getElementById("site-menu");
+      const projectsDropdown = document.querySelector(".projects-dropdown");
+      const projectsToggle = document.querySelector(".projects-toggle");
+
+      function closeSiteMenu() {
+        if (!menuToggle || !siteMenu) return;
+        siteMenu.classList.remove("open");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.setAttribute("aria-label", "Open navigation");
+      }
+
+      function closeProjectsMenu() {
+        if (!projectsDropdown || !projectsToggle) return;
+        projectsDropdown.classList.remove("open");
+        projectsToggle.setAttribute("aria-expanded", "false");
+        projectsToggle.setAttribute("aria-label", "Open projects menu");
+      }
+
+      if (menuToggle && siteMenu) {
+        menuToggle.addEventListener("click", () => {
+          const isOpen = siteMenu.classList.toggle("open");
+          menuToggle.setAttribute("aria-expanded", String(isOpen));
+          menuToggle.setAttribute("aria-label", isOpen ? "Close navigation" : "Open navigation");
+          if (!isOpen) closeProjectsMenu();
+        });
+      }
+
+      if (projectsToggle && projectsDropdown) {
+        projectsToggle.addEventListener("click", (event) => {
+          event.stopPropagation();
+          const isOpen = projectsDropdown.classList.toggle("open");
+          projectsToggle.setAttribute("aria-expanded", String(isOpen));
+          projectsToggle.setAttribute("aria-label", isOpen ? "Close projects menu" : "Open projects menu");
+        });
+      }
+
+      document.querySelectorAll("#site-menu a").forEach((link) => {
+        link.addEventListener("click", () => {
+          closeProjectsMenu();
+          closeSiteMenu();
+        });
+      });
+
+      document.addEventListener("click", (event) => {
+        if (projectsDropdown && !projectsDropdown.contains(event.target)) {
+          closeProjectsMenu();
+        }
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          closeProjectsMenu();
+          closeSiteMenu();
+        }
+      });
+
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 720) closeSiteMenu();
+        closeProjectsMenu();
+      });
+    })();
+  </script>
+
+</body>
+</html>

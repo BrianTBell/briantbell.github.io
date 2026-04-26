@@ -168,6 +168,7 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      gap: 48px;
       padding: clamp(30px, 5vw, 58px);
       overflow: hidden;
       position: relative;
@@ -185,6 +186,12 @@
       pointer-events: none;
     }
 
+    .hero-top {
+      position: relative;
+      z-index: 1;
+      display: block;
+    }
+
     .availability {
       display: inline-flex;
       align-items: center;
@@ -197,6 +204,7 @@
       color: var(--muted);
       font-size: 0.82rem;
       font-weight: 560;
+      white-space: nowrap;
     }
 
     .availability::before {
@@ -206,6 +214,7 @@
       border-radius: 999px;
       background: var(--green);
     }
+
 
     h1,
     h2,
@@ -295,6 +304,24 @@
       line-height: 1.02;
       letter-spacing: -0.065em;
       font-weight: 740;
+    }
+
+    .profile-photo {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      background: var(--card-soft);
+      overflow: hidden;
+      box-shadow: 0 18px 46px rgba(0, 0, 0, 0.07);
+    }
+
+    .profile-photo img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: center center;
     }
 
     .panel-list {
@@ -605,12 +632,30 @@
         grid-template-columns: 1fr;
       }
 
-      .hero-main {
-        min-height: 500px;
+      .hero-panel {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) clamp(190px, 24vw, 248px);
+        grid-template-areas: "facts photo";
+        align-items: center;
+        gap: 26px;
+        justify-content: stretch;
       }
 
-      .hero-panel {
-        max-width: none;
+      .profile-photo {
+        grid-area: photo;
+        width: 100%;
+        align-self: center;
+        justify-self: end;
+      }
+
+      .panel-list {
+        grid-area: facts;
+        align-self: center;
+        margin: 0;
+      }
+
+      .hero-main {
+        min-height: 500px;
       }
 
       .project-card.featured {
@@ -652,6 +697,28 @@
         border-radius: 26px;
       }
 
+      .hero-panel {
+        grid-template-columns: minmax(0, 1fr) 118px;
+        grid-template-areas: "facts photo";
+        gap: 14px;
+        align-items: center;
+      }
+
+      .profile-photo {
+        width: 118px;
+        border-radius: 20px;
+      }
+
+      .panel-item {
+        gap: 12px;
+        padding: 12px 0;
+      }
+
+      .panel-item span:first-child,
+      .panel-item span:last-child {
+        font-size: 0.84rem;
+      }
+
       .hero-main,
       .hero-panel,
       .project-card,
@@ -660,6 +727,7 @@
       .capability-card {
         padding: 24px;
       }
+
 
       h1 {
         font-size: clamp(3.55rem, 17vw, 5.2rem);
@@ -691,6 +759,393 @@
         align-items: flex-start;
       }
     }
+
+    /* Mobile dropdown navigation */
+    .menu-toggle {
+      display: none;
+      width: 38px;
+      height: 38px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.68);
+      color: var(--text);
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 4px;
+      transition: 160ms ease;
+    }
+
+    .menu-toggle:hover {
+      border-color: var(--line-strong);
+      background: #fff;
+      transform: translateY(-1px);
+    }
+
+    .menu-toggle span {
+      width: 16px;
+      height: 2px;
+      border-radius: 999px;
+      background: currentColor;
+      transition: transform 180ms ease, opacity 180ms ease;
+    }
+
+    .menu-toggle[aria-expanded="true"] span:nth-child(1) {
+      transform: translateY(6px) rotate(45deg);
+    }
+
+    .menu-toggle[aria-expanded="true"] span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-toggle[aria-expanded="true"] span:nth-child(3) {
+      transform: translateY(-6px) rotate(-45deg);
+    }
+
+    @media (max-width: 720px) {
+      .nav-inner {
+        min-height: 58px;
+        flex-wrap: wrap;
+        gap: 0;
+        padding: 10px 0;
+      }
+
+      .menu-toggle {
+        display: inline-flex;
+      }
+
+      .nav-right {
+        display: none;
+        flex-basis: 100%;
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        padding: 10px 0 4px;
+      }
+
+      .nav-right.open {
+        display: flex;
+      }
+
+      .nav-links {
+        display: flex !important;
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        gap: 4px;
+        font-size: 0.94rem;
+      }
+
+      .nav-links a {
+        display: block;
+        padding: 13px 14px;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.52);
+        border: 1px solid transparent;
+      }
+
+      .nav-links a:hover {
+        background: #fff;
+        border-color: var(--line);
+      }
+
+      .nav-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        width: 100%;
+      }
+
+      .icon-link {
+        height: 42px;
+        border-radius: 16px;
+      }
+
+      .icon-link.text {
+        display: inline-flex !important;
+      }
+    }
+
+    @media (min-width: 721px) {
+      .nav-right {
+        display: flex !important;
+      }
+    }
+
+  
+    /* Unified dropdown navbar */
+    .menu-toggle {
+      display: none;
+      width: 38px;
+      height: 38px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.68);
+      color: var(--text);
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 4px;
+      transition: 160ms ease;
+    }
+
+    .menu-toggle:hover {
+      border-color: var(--line-strong);
+      background: #fff;
+      transform: translateY(-1px);
+    }
+
+    .menu-toggle span {
+      width: 16px;
+      height: 2px;
+      border-radius: 999px;
+      background: currentColor;
+      transition: transform 180ms ease, opacity 180ms ease;
+    }
+
+    .menu-toggle[aria-expanded="true"] span:nth-child(1) {
+      transform: translateY(6px) rotate(45deg);
+    }
+
+    .menu-toggle[aria-expanded="true"] span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-toggle[aria-expanded="true"] span:nth-child(3) {
+      transform: translateY(-6px) rotate(-45deg);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .icon-link {
+      height: 34px;
+      min-width: 34px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.68);
+      color: var(--text);
+      font-size: 0.82rem;
+      font-weight: 560;
+      transition: 160ms ease;
+    }
+
+    .icon-link.text {
+      padding: 0 12px;
+    }
+
+    .icon-link:hover {
+      border-color: var(--line-strong);
+      background: #fff;
+      transform: translateY(-1px);
+    }
+
+    .icon-link svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .projects-dropdown {
+      position: relative;
+    }
+
+    .projects-toggle {
+      height: 34px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      padding: 9px 10px;
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      color: inherit;
+      font: inherit;
+      font-weight: inherit;
+      cursor: pointer;
+      transition: 160ms ease;
+    }
+
+    .projects-toggle:hover,
+    .projects-dropdown.open .projects-toggle {
+      color: var(--text);
+      background: rgba(0, 0, 0, 0.045);
+    }
+
+    .projects-toggle svg {
+      width: 15px;
+      height: 15px;
+      transition: transform 160ms ease;
+    }
+
+    .projects-dropdown.open .projects-toggle svg {
+      transform: rotate(180deg);
+    }
+
+    .projects-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      min-width: 230px;
+      display: grid;
+      gap: 4px;
+      padding: 8px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.96);
+      box-shadow: var(--shadow);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translateY(-6px);
+      transition: 160ms ease;
+    }
+
+    .projects-dropdown.open .projects-menu,
+    .projects-dropdown:hover .projects-menu {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .projects-menu a {
+      display: block;
+      padding: 11px 12px;
+      border-radius: 12px;
+      color: var(--text);
+      white-space: nowrap;
+    }
+
+    .projects-menu a:hover {
+      background: rgba(0, 0, 0, 0.045);
+    }
+
+    @media (max-width: 720px) {
+      .nav-inner {
+        min-height: 58px;
+        flex-wrap: wrap;
+        gap: 0;
+        padding: 10px 0;
+      }
+
+      .menu-toggle {
+        display: inline-flex;
+      }
+
+      .nav-right {
+        display: none;
+        flex-basis: 100%;
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        padding: 10px 0 4px;
+      }
+
+      .nav-right.open {
+        display: flex;
+      }
+
+      .nav-links {
+        display: flex !important;
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        gap: 4px;
+        font-size: 0.94rem;
+      }
+
+      .nav-links > a,
+      .projects-toggle {
+        width: 100%;
+        min-height: 46px;
+        justify-content: space-between;
+        padding: 13px 14px;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.52);
+        border: 1px solid transparent;
+        color: var(--muted);
+      }
+
+      .nav-links > a:hover,
+      .projects-toggle:hover,
+      .projects-dropdown.open .projects-toggle {
+        color: var(--text);
+        background: #fff;
+        border-color: var(--line);
+      }
+
+      .projects-dropdown {
+        width: 100%;
+      }
+
+      .projects-menu {
+        position: static;
+        min-width: 0;
+        width: 100%;
+        margin-top: 4px;
+        padding: 4px 0 0 14px;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none;
+        display: none;
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: none;
+      }
+
+      .projects-dropdown.open .projects-menu {
+        display: grid;
+      }
+
+      .projects-menu a {
+        padding: 11px 14px;
+        border-radius: 14px;
+        color: var(--muted);
+        background: rgba(255, 255, 255, 0.38);
+      }
+
+      .projects-menu a:hover {
+        color: var(--text);
+        background: #fff;
+      }
+
+      .nav-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        width: 100%;
+      }
+
+      .icon-link {
+        height: 42px;
+        border-radius: 16px;
+      }
+
+      .icon-link.text {
+        display: inline-flex !important;
+      }
+    }
+
+    @media (min-width: 721px) {
+      .nav-right {
+        display: flex !important;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -698,11 +1153,33 @@
     <div class="wrap nav-inner">
       <a href="#top" class="brand">Brian Bell</a>
 
-      <div class="nav-right">
+      <button class="menu-toggle" type="button" aria-label="Open navigation" aria-controls="site-menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <div class="nav-right" id="site-menu">
         <div class="nav-links" aria-label="Primary navigation">
-          <a href="#projects">Projects</a>
-          <a href="Brian%20Bell%20-%20Engineering%20Resume.pdf">Resume</a>
-          <a href="#about">About Me</a>
+          <a href="index.html">Home</a>
+
+          <div class="projects-dropdown">
+            <button class="projects-toggle" type="button" aria-label="Open projects menu" aria-controls="projects-menu" aria-expanded="false">
+              <span>Projects</span>
+              <svg viewBox="0 0 20 20" aria-hidden="true">
+                <path d="M5.5 7.5 10 12l4.5-4.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+
+            <div class="projects-menu" id="projects-menu">
+              <a href="cobot.html">Cobot Workcell</a>
+              <a href="regulated_design.html">Regulated Design</a>
+              <a href="index.html#projects">Regulated Manufacturing</a>
+            </div>
+          </div>
+
+          <a href="assets/Brian_Bell_CV.pdf" target="_blank">Resume</a>
+          <a href="about.html">About Me</a>
         </div>
 
         <div class="nav-actions" aria-label="Contact links">
@@ -719,28 +1196,29 @@
     <header class="hero">
       <div class="wrap hero-grid">
         <section class="hero-main" aria-label="Intro">
-          <div class="availability">Available for engineering opportunities</div>
+          <div class="hero-top">
+            <div class="availability">Available for engineering opportunities</div>
+          </div>
 
           <div class="hero-copy">
             <h1>Brian Bell</h1>
-            <p class="subtitle">Mechanical Engineer &amp; Project Engineer focused on regulated hardware, robotics R&amp;D, test &amp; verification, and production transition.</p>
+            <p class="subtitle">Mechanical Engineer with experience leading collaborative robotics R&D and executing regulated electromechanical hardware programs from requirements breakdown through First Article Test & Release and production handof</p>
             <div class="hero-actions">
               <a class="button primary" href="#projects">View Projects</a>
-              <a class="button" href="Brian%20Bell%20-%20Engineering%20Resume.pdf">Resume</a>
+              <a class="button" href="assets/Brian_Bell_CV.pdf" target="_blank">Resume</a>
             </div>
           </div>
         </section>
 
         <aside class="hero-panel" aria-label="Engineering profile summary">
-          <div>
-            <div class="panel-label">Profile</div>
-            <h2>Engineer for hire across complex electromechanical programs.</h2>
+          <div class="profile-photo">
+            <img src="images/ProfilePicture.png" alt="Portrait of Brian Bell" />
           </div>
 
           <div class="panel-list">
-            <div class="panel-item"><span>Current Focus</span><span>Robotics R&amp;D</span></div>
-            <div class="panel-item"><span>Core Work</span><span>NPI → FATR → Release</span></div>
-            <div class="panel-item"><span>Tools</span><span>SolidWorks · Python · UR</span></div>
+            <div class="panel-item"><span>Current Focus</span><span>R&amp;D, Robotics</span></div>
+            <div class="panel-item"><span>Core Work</span><span>R&amp;D, NPI, Regulated Manufacturing </span></div>
+            <div class="panel-item"><span>Tools</span><span>SolidWorks · Python · ANSYS</span></div>
             <div class="panel-item"><span>Location</span><span>Tampa, FL</span></div>
           </div>
         </aside>
@@ -751,8 +1229,8 @@
       <div class="wrap">
         <div class="section-head">
           <div>
-            <p class="eyebrow">Selected Work</p>
-            <h2>Projects</h2>
+            <p class="eyebrow">Projects & Capability Case Studies</p>
+            <h2>Selected Work</h2>
           </div>
           <p class="section-note">A concise view of engineering work across robotics R&amp;D, regulated hardware execution, automation, and controlled test/release workflows.</p>
         </div>
@@ -761,29 +1239,34 @@
           <article class="project-card featured">
             <div>
               <span class="tag">Robotics R&amp;D</span>
-              <h3>Autonomous Cobot-Enabled Workcell</h3>
-              <p>Technical lead for a commercial high-precision dual-cobot workcell platform spanning system architecture, electromechanical integration, control software development, testing, executive/customer reviews, and technical reporting.</p>
+              <h3>Cobot-Enabled Workcell Platform</h3>
+              <p>I served as Technical Lead for a regulated R&D program developing a commercial, high-precision dual-cobot workcell platform. The system was designed to automate tedious, precision technician workflows while improving repeatability, throughput, and process control. My role spanned the full system, including mechanical design, electromechanical integration, controls, software architecture, testing, procurement, and technical execution.</p>
+              <br>
+              <p>A major portion of my work involved developing the Python-based control software that coordinated robot behavior, subsystem sequencing, operator interaction, and process flow. I helped define the software architecture and worked hands-on with robot communication, state-machine logic, GUI concepts, sensor integration, and functional test routines. In parallel, I owned workcell layout, Universal Robots integration, custom CAD adaptations, electrical setup, subsystem power-rating review, and off-the-shelf component integration.</p>
+              <br>
+              <p>Beyond the technical implementation, I drove execution deadlines, supported procurement and requisitioning, led project demonstrations, and coordinated verification activities across accuracy, precision, cycle time, and functional performance. I regularly briefed C-level leadership, supported client technical interchange, and contributed to proposals, feasibility studies, internal technical reports, and monthly customer status reporting. The effort resulted in a feasible commercialized prototype platform that reduced manual effort, increased throughput, and demonstrated the viability of the automation approach.</p>
             </div>
             <div class="chips">
-              <span class="chip">UR3e / UR10e</span>
-              <span class="chip">RTDE</span>
-              <span class="chip">URScript</span>
-              <span class="chip">Isaac Sim</span>
+              <span class="chip">Robotics R&D</span>
+              <span class="chip">Cobot Workcells</span>
               <span class="chip">System Architecture</span>
+              <span class="chip">Electromechanical Integration</span>
+              <span class="chip">Control Software </span>
             </div>
           </article>
 
           <article class="project-card">
             <div>
               <span class="tag gray">NPI / Hardware</span>
-              <h3>Cobot-Enabled Autonomous Workcell</h3>
-              <p>Led design, redesign, prototyping, supplier coordination, assembly, troubleshooting, test documentation, and controlled release requirements for a multi-assembly electromechanical system.</p>
+              <h3>Regulated Design </h3>
+              <p>Led design, redesign, and prototyping of regulated defense electromechanical hardware as lead engineer and primary mechanical owner. Owned enclosures, assemblies, mechanisms, fixtures, subsystem integration, supplier coordination, procurement, prototype builds, troubleshooting, and verification support. Created and maintained SolidWorks models, drawings, MBOMs, ECNs, controlled release documentation, and production handoff packages.</p>
             </div>
             <div class="chips">
-              <span class="chip">SolidWorks</span>
-              <span class="chip">Prototyping</span>
-              <span class="chip">Test Docs</span>
-              <span class="chip">Release Control</span>
+              <span class="chip">Electromechanical Design</span>
+              <span class="chip">Prototype Development</span>
+              <span class="chip">Controlled Release</span>
+              <span class="chip">Supplier Coordination</span>
+              <span class="chip">Production Handoff</span>
             </div>
           </article>
 
@@ -804,7 +1287,7 @@
       </div>
     </section>
 
-    <section id="about">
+    <section id="about-preview">
       <div class="wrap about-grid">
         <article class="about-panel dark">
           <p class="eyebrow">About Me</p>
@@ -875,7 +1358,7 @@
             <h2>For the formal version.</h2>
             <p>Download the resume for a concise summary of experience, education, projects, and technical strengths.</p>
           </div>
-          <a class="button primary" href="Brian%20Bell%20-%20Engineering%20Resume.pdf">Open Resume</a>
+          <a class="button primary" href="assets/Brian_Bell_CV.pdf" target="_blank">Open Resume</a>
         </article>
       </div>
     </section>
@@ -889,7 +1372,73 @@
   </footer>
 
   <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
+    const yearEl = document.getElementById("year");
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+    (() => {
+      const menuToggle = document.querySelector(".menu-toggle");
+      const siteMenu = document.getElementById("site-menu");
+      const projectsDropdown = document.querySelector(".projects-dropdown");
+      const projectsToggle = document.querySelector(".projects-toggle");
+
+      function closeSiteMenu() {
+        if (!menuToggle || !siteMenu) return;
+        siteMenu.classList.remove("open");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.setAttribute("aria-label", "Open navigation");
+      }
+
+      function closeProjectsMenu() {
+        if (!projectsDropdown || !projectsToggle) return;
+        projectsDropdown.classList.remove("open");
+        projectsToggle.setAttribute("aria-expanded", "false");
+        projectsToggle.setAttribute("aria-label", "Open projects menu");
+      }
+
+      if (menuToggle && siteMenu) {
+        menuToggle.addEventListener("click", () => {
+          const isOpen = siteMenu.classList.toggle("open");
+          menuToggle.setAttribute("aria-expanded", String(isOpen));
+          menuToggle.setAttribute("aria-label", isOpen ? "Close navigation" : "Open navigation");
+          if (!isOpen) closeProjectsMenu();
+        });
+      }
+
+      if (projectsToggle && projectsDropdown) {
+        projectsToggle.addEventListener("click", (event) => {
+          event.stopPropagation();
+          const isOpen = projectsDropdown.classList.toggle("open");
+          projectsToggle.setAttribute("aria-expanded", String(isOpen));
+          projectsToggle.setAttribute("aria-label", isOpen ? "Close projects menu" : "Open projects menu");
+        });
+      }
+
+      document.querySelectorAll("#site-menu a").forEach((link) => {
+        link.addEventListener("click", () => {
+          closeProjectsMenu();
+          closeSiteMenu();
+        });
+      });
+
+      document.addEventListener("click", (event) => {
+        if (projectsDropdown && !projectsDropdown.contains(event.target)) {
+          closeProjectsMenu();
+        }
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          closeProjectsMenu();
+          closeSiteMenu();
+        }
+      });
+
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 720) closeSiteMenu();
+        closeProjectsMenu();
+      });
+    })();
   </script>
+
 </body>
 </html>
