@@ -346,9 +346,9 @@ footer .fa-envelope {
 }
 
 /* Header Styling for Sections */
-h3 {
+.body_content_header {
     margin-top: 0;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 /* Adjust for smaller screens (stack the columns) */
