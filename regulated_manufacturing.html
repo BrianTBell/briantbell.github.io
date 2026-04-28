@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Autonomous Cobot-Enabled Workcell project case study by Brian Bell." />
-  <title>Autonomous Cobot-Enabled Workcell | Brian Bell</title>
+  <meta name="description" content="Regulated manufacturing execution and First Article Test & Release capability case study by Brian Bell." />
+  <title>Regulated Manufacturing Execution | Brian Bell</title>
   <style>
     :root {
       --bg: #f5f5f7;
@@ -18,7 +18,9 @@
       --blue: #0071e3;
       --blue-soft: #e8f2ff;
       --green: #24a148;
+      --green-soft: #eaf8ee;
       --orange: #f56300;
+      --orange-soft: #fff1e8;
       --purple: #7e57ff;
       --purple-soft: #f0edff;
       --radius-xl: 34px;
@@ -78,6 +80,48 @@
       gap: 18px;
     }
 
+    .menu-toggle {
+      display: none;
+      width: 38px;
+      height: 38px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.68);
+      color: var(--text);
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 4px;
+      transition: 160ms ease;
+    }
+
+    .menu-toggle:hover {
+      border-color: var(--line-strong);
+      background: #fff;
+      transform: translateY(-1px);
+    }
+
+    .menu-toggle span {
+      width: 16px;
+      height: 2px;
+      border-radius: 999px;
+      background: currentColor;
+      transition: transform 180ms ease, opacity 180ms ease;
+    }
+
+    .menu-toggle[aria-expanded="true"] span:nth-child(1) {
+      transform: translateY(6px) rotate(45deg);
+    }
+
+    .menu-toggle[aria-expanded="true"] span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-toggle[aria-expanded="true"] span:nth-child(3) {
+      transform: translateY(-6px) rotate(-45deg);
+    }
+
     .nav-links {
       display: flex;
       align-items: center;
@@ -87,15 +131,110 @@
       font-weight: 520;
     }
 
-    .nav-links a {
+    .nav-links a,
+    .projects-trigger {
       padding: 9px 10px;
       border-radius: 999px;
       transition: 160ms ease;
     }
 
-    .nav-links a:hover {
+    .nav-links a:hover,
+    .projects-trigger:hover {
       color: var(--text);
       background: rgba(0, 0, 0, 0.045);
+    }
+
+    .projects-menu {
+      position: relative;
+    }
+
+    .projects-trigger {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .projects-trigger::after {
+      content: "⌄";
+      font-size: 0.82rem;
+      line-height: 1;
+      transform: translateY(-1px);
+    }
+
+    .projects-dropdown {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      min-width: 230px;
+      display: grid;
+      gap: 4px;
+      padding: 8px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.96);
+      box-shadow: var(--shadow);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translateY(-6px);
+      transition: 160ms ease;
+    }
+
+    .projects-menu:hover .projects-dropdown,
+    .projects-menu.open .projects-dropdown {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .projects-dropdown a {
+      display: block;
+      padding: 11px 12px;
+      border-radius: 12px;
+      white-space: nowrap;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .icon-link {
+      height: 34px;
+      min-width: 34px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.68);
+      color: var(--text);
+      font-size: 0.82rem;
+      font-weight: 560;
+      transition: 160ms ease;
+    }
+
+    .icon-link.text {
+      padding: 0 12px;
+    }
+
+    .icon-link:hover {
+      border-color: var(--line-strong);
+      background: #fff;
+      transform: translateY(-1px);
+    }
+
+    .icon-link svg {
+      width: 16px;
+      height: 16px;
     }
 
     .button {
@@ -167,7 +306,7 @@
       right: -145px;
       bottom: -155px;
       border-radius: 999px;
-      background: radial-gradient(circle, rgba(0, 113, 227, 0.17), rgba(0, 113, 227, 0.04) 48%, transparent 70%);
+      background: radial-gradient(circle, rgba(36, 161, 72, 0.16), rgba(36, 161, 72, 0.04) 48%, transparent 70%);
       pointer-events: none;
     }
 
@@ -192,22 +331,22 @@
       min-height: 31px;
       padding: 0 12px;
       border-radius: 999px;
-      background: var(--blue-soft);
-      color: var(--blue);
+      background: var(--green-soft);
+      color: var(--green);
       font-size: 0.76rem;
       font-weight: 700;
       letter-spacing: 0.06em;
       text-transform: uppercase;
     }
 
-    .tag.green { background: #eaf8ee; color: var(--green); }
-    .tag.orange { background: #fff1e8; color: var(--orange); }
+    .tag.blue { background: var(--blue-soft); color: var(--blue); }
+    .tag.orange { background: var(--orange-soft); color: var(--orange); }
     .tag.purple { background: var(--purple-soft); color: var(--purple); }
 
     h1, h2, h3, p { margin-top: 0; }
 
     h1 {
-      max-width: 780px;
+      max-width: 800px;
       margin: 22px 0 22px;
       font-size: clamp(3.2rem, 7.5vw, 6.7rem);
       line-height: 0.92;
@@ -298,8 +437,8 @@
       display: grid;
       place-items: center;
       border-radius: 19px;
-      background: var(--blue-soft);
-      color: var(--blue);
+      background: var(--green-soft);
+      color: var(--green);
       font-size: 1.25rem;
       font-weight: 750;
     }
@@ -360,6 +499,7 @@
     }
 
     .panel p:last-child { margin-bottom: 0; }
+    .panel p + p { margin-top: 16px; }
 
     .two-col {
       display: grid;
@@ -453,14 +593,14 @@
 
     .callout {
       padding: 20px;
-      border: 1px solid rgba(0, 113, 227, 0.18);
+      border: 1px solid rgba(36, 161, 72, 0.22);
       border-radius: var(--radius-lg);
-      background: var(--blue-soft);
+      background: var(--green-soft);
     }
 
     .callout p {
       margin: 0;
-      color: #164b7d;
+      color: #155d2a;
     }
 
     .next { padding: 56px 0 88px; }
@@ -493,171 +633,6 @@
       gap: 18px;
     }
 
-
-
-    .menu-toggle {
-      display: none;
-      width: 40px;
-      height: 40px;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      gap: 4px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.68);
-      color: var(--text);
-      cursor: pointer;
-      transition: 160ms ease;
-    }
-
-    .menu-toggle:hover {
-      border-color: var(--line-strong);
-      background: #fff;
-    }
-
-    .menu-toggle span {
-      width: 16px;
-      height: 2px;
-      border-radius: 999px;
-      background: currentColor;
-      transition: 160ms ease;
-    }
-
-    .menu-toggle[aria-expanded="true"] span:nth-child(1) {
-      transform: translateY(6px) rotate(45deg);
-    }
-
-    .menu-toggle[aria-expanded="true"] span:nth-child(2) {
-      opacity: 0;
-    }
-
-    .menu-toggle[aria-expanded="true"] span:nth-child(3) {
-      transform: translateY(-6px) rotate(-45deg);
-    }
-
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .icon-link {
-      height: 34px;
-      min-width: 34px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.68);
-      color: var(--text);
-      font-size: 0.82rem;
-      font-weight: 560;
-      transition: 160ms ease;
-    }
-
-    .icon-link.text {
-      padding: 0 12px;
-    }
-
-    .icon-link:hover {
-      border-color: var(--line-strong);
-      background: #fff;
-      transform: translateY(-1px);
-    }
-
-    .icon-link svg {
-      width: 16px;
-      height: 16px;
-    }
-
-    .nav-projects {
-      position: relative;
-    }
-
-    .projects-trigger {
-      height: auto;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 9px 10px;
-      border: 0;
-      border-radius: 999px;
-      background: transparent;
-      color: var(--muted);
-      font: inherit;
-      font-size: 0.82rem;
-      font-weight: 520;
-      cursor: pointer;
-      transition: 160ms ease;
-    }
-
-    .projects-trigger::after {
-      content: "";
-      width: 6px;
-      height: 6px;
-      margin-top: -3px;
-      border-right: 1.5px solid currentColor;
-      border-bottom: 1.5px solid currentColor;
-      transform: rotate(45deg);
-      transition: 160ms ease;
-    }
-
-    .nav-projects.open .projects-trigger,
-    .projects-trigger:hover {
-      color: var(--text);
-      background: rgba(0, 0, 0, 0.045);
-    }
-
-    .nav-projects.open .projects-trigger::after {
-      margin-top: 3px;
-      transform: rotate(-135deg);
-    }
-
-    .projects-menu {
-      position: absolute;
-      top: calc(100% + 8px);
-      left: 0;
-      min-width: 225px;
-      display: grid;
-      gap: 2px;
-      padding: 8px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius-md);
-      background: rgba(255, 255, 255, 0.96);
-      box-shadow: var(--shadow);
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-      transform: translateY(-6px);
-      transition: 160ms ease;
-    }
-
-    .nav-projects.open .projects-menu {
-      opacity: 1;
-      visibility: visible;
-      pointer-events: auto;
-      transform: translateY(0);
-    }
-
-    .projects-menu a {
-      display: block;
-      padding: 11px 12px;
-      border-radius: 12px;
-      color: var(--muted);
-      font-size: 0.86rem;
-      font-weight: 520;
-      white-space: nowrap;
-      transition: 160ms ease;
-    }
-
-    .projects-menu a:hover {
-      color: var(--text);
-      background: rgba(0, 0, 0, 0.045);
-    }
-
     @media (max-width: 900px) {
       .hero-card,
       .section-grid,
@@ -670,9 +645,101 @@
       .two-col, .stat-grid { grid-template-columns: 1fr; }
     }
 
-    @media (max-width: 680px) {
+    @media (max-width: 720px) {
       .wrap { width: min(100% - 28px, var(--max)); }
-      .nav-links { display: none; }
+
+      .nav-inner {
+        min-height: 58px;
+        flex-wrap: wrap;
+        gap: 0;
+        padding: 10px 0;
+      }
+
+      .menu-toggle {
+        display: inline-flex;
+      }
+
+      .nav-right {
+        display: none;
+        flex-basis: 100%;
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        padding: 10px 0 4px;
+      }
+
+      .nav-right.open {
+        display: flex;
+      }
+
+      .nav-links {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        gap: 4px;
+        font-size: 0.94rem;
+      }
+
+      .nav-links a,
+      .projects-trigger {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        padding: 13px 14px;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.52);
+        border: 1px solid transparent;
+        text-align: left;
+      }
+
+      .projects-menu {
+        width: 100%;
+      }
+
+      .projects-dropdown {
+        position: static;
+        min-width: 0;
+        width: 100%;
+        margin-top: 4px;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none;
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: none;
+        display: none;
+      }
+
+      .projects-menu.open .projects-dropdown {
+        display: grid;
+      }
+
+      .projects-dropdown a {
+        margin-left: 12px;
+        background: rgba(255, 255, 255, 0.42);
+      }
+
+      .nav-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        width: 100%;
+      }
+
+      .icon-link {
+        height: 42px;
+        border-radius: 16px;
+      }
+
+      .icon-link.text {
+        display: inline-flex;
+      }
+
       .hero { padding: 52px 0 28px; }
 
       .hero-card,
@@ -702,94 +769,6 @@
         align-items: flex-start;
       }
     }
-  
-
-    @media (max-width: 680px) {
-      .nav-inner {
-        position: relative;
-      }
-
-      .menu-toggle {
-        display: inline-flex;
-      }
-
-      .nav-right {
-        position: absolute;
-        top: calc(100% + 10px);
-        left: 0;
-        right: 0;
-        display: grid;
-        gap: 12px;
-        padding: 14px;
-        border: 1px solid var(--line);
-        border-radius: var(--radius-lg);
-        background: rgba(255, 255, 255, 0.96);
-        box-shadow: var(--shadow);
-        opacity: 0;
-        visibility: hidden;
-        pointer-events: none;
-        transform: translateY(-8px);
-        transition: 160ms ease;
-      }
-
-      .nav-right.open {
-        opacity: 1;
-        visibility: visible;
-        pointer-events: auto;
-        transform: translateY(0);
-      }
-
-      .nav-links {
-        display: grid;
-        gap: 4px;
-        width: 100%;
-      }
-
-      .nav-links a,
-      .projects-trigger {
-        width: 100%;
-        justify-content: space-between;
-        padding: 12px 14px;
-        border-radius: 14px;
-      }
-
-      .nav-projects {
-        width: 100%;
-      }
-
-      .projects-menu {
-        position: static;
-        min-width: 0;
-        display: none;
-        margin: 4px 0 4px 12px;
-        padding: 0;
-        border: 0;
-        border-left: 1px solid var(--line);
-        border-radius: 0;
-        background: transparent;
-        box-shadow: none;
-        opacity: 1;
-        visibility: visible;
-        pointer-events: auto;
-        transform: none;
-      }
-
-      .nav-projects.open .projects-menu {
-        display: grid;
-      }
-
-      .projects-menu a {
-        padding: 10px 12px;
-        border-radius: 12px;
-      }
-
-      .nav-actions {
-        justify-content: space-between;
-        padding-top: 12px;
-        border-top: 1px solid var(--line);
-      }
-    }
-
 
     /* Balanced paragraph justification for primary prose */
     .subtitle,
@@ -842,11 +821,9 @@
         <div class="nav-links" aria-label="Primary navigation">
           <a href="index.html">Home</a>
 
-          <div class="nav-projects">
-            <button class="projects-trigger" type="button" aria-haspopup="true" aria-expanded="false">
-              Projects
-            </button>
-            <div class="projects-menu" aria-label="Project navigation">
+          <div class="projects-menu">
+            <button class="projects-trigger" type="button" aria-expanded="false">Projects</button>
+            <div class="projects-dropdown">
               <a href="cobot.html">Cobot Workcell</a>
               <a href="regulated_design.html">Regulated Design</a>
               <a href="regulated_manufacturing.html">Regulated Manufacturing</a>
@@ -869,63 +846,61 @@
   <main id="top">
     <header class="hero">
       <div class="wrap">
-        <a class="breadcrumb" href="index.html#projects">← Back to projects</a>
+        <a class="breadcrumb" href="index.html#projects">← Back to selected work</a>
 
         <article class="hero-card">
           <div class="hero-main">
-            <span class="tag">Robotics R&amp;D</span>
-            <h1>Cobot-Enabled Workcell</h1>
-            <p class="lede">A regulated R&amp;D program developing a commercial high-precision dual-cobot workcell platform to automate tedious precision technician workflows, improve repeatability, increase throughput, and strengthen process control.</p>
+            <span class="tag">Capability Case Study</span>
+            <h1>Regulated Manufacturing</h1>
+            <p class="lede">A capability case study covering post-award engineering execution for regulated electromechanical hardware programs, from contract award through First Article Test &amp; Release, production readiness, and customer submission support.</p>
           </div>
 
           <div class="hero-side">
-            <aside class="hero-meta" aria-label="Project metadata">
-              <div class="meta-row"><span>Role</span><span>Technical Lead</span></div>
-              <div class="meta-row"><span>Timeline</span><span>Oct 2025 — Present</span></div>
-              <div class="meta-row"><span>Domain</span><span>Regulated Robotics R&amp;D</span></div>
-              <div class="meta-row"><span>Status</span><span>Commercial Prototype</span></div>
+            <aside class="hero-meta" aria-label="Capability metadata">
+              <div class="meta-row"><span>Role</span><span>Post-Award Engineering Owner</span></div>
+              <div class="meta-row"><span>Domain</span><span>Wire Harnesses &amp; Box Builds</span></div>
+              <div class="meta-row"><span>Scope</span><span>Award → FATR → Production</span></div>
+              <div class="meta-row"><span>Environment</span><span>AS9100-Controlled</span></div>
             </aside>
           </div>
         </article>
       </div>
     </header>
 
-    <!-- Project Photo
-    <section class="project-media" aria-label="Project image">
+    <section class="project-media" aria-label="Capability image">
       <div class="wrap">
         <article class="project-media-card">
           <div class="media-frame">
             <img
-              src="images/cobot-workcell/hero.jpg"
-              alt="Dual-cobot workcell platform"
+              src="images/regulated-manufacturing/hero.jpg"
+              alt="Regulated manufacturing execution and First Article Test Release work"
               onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';"
             />
             <div class="media-placeholder">
               <div class="media-placeholder-inner">
                 <div class="media-placeholder-icon">⌁</div>
-                <p>Add a project image, CAD render, system photo, test setup, or architecture graphic here.</p>
+                <p>Add a generalized image, inspection setup, test documentation graphic, production package view, or non-sensitive hardware detail here.</p>
               </div>
             </div>
           </div>
         </article>
       </div>
-    </section> 
-  -->
+    </section>
 
     <section>
       <div class="wrap section-grid">
         <div class="section-label">Overview</div>
         <div>
           <article class="panel">
-            <h2>Project summary</h2>
-            <p>I served as Technical Lead for a regulated R&amp;D program developing a commercial, high-precision dual-cobot workcell platform. The system was designed to automate tedious precision technician workflows while improving repeatability, throughput, and process control.</p>
-            <p>My ownership spanned the full workcell, including system architecture, mechanical design, electromechanical integration, control software, electrical setup, testing, procurement, demonstrations, and technical reporting.</p>
+            <h2>Capability summary</h2>
+            <p>I own post-award engineering execution for regulated electromechanical hardware programs, including wire harnesses and box-build assemblies, within an AS9100-controlled environment. My role begins once a project is awarded. From that point, I translate the contract, production requirements, and First Article obligations into an executable engineering plan.</p>
+            <p>This work connects engineering, procurement, suppliers, test labs, quality, manufacturing, shipping, and customer-facing submission requirements into a single controlled execution flow.</p>
           </article>
 
           <div class="stat-grid">
-            <div class="stat-card"><strong>Lead</strong><span>Technical ownership across the full dual-cobot workcell platform</span></div>
-            <div class="stat-card"><strong>Full</strong><span>Architecture, design, integration, controls, testing, and reporting scope</span></div>
-            <div class="stat-card"><strong>Proto</strong><span>Feasible commercial prototype platform demonstrating automation viability</span></div>
+            <div class="stat-card"><strong>Award</strong><span>Translate contract and production requirements into executable engineering tasks</span></div>
+            <div class="stat-card"><strong>FATR</strong><span>Plan procedures, test sequencing, inspection documentation, and report completion</span></div>
+            <div class="stat-card"><strong>Release</strong><span>Drive production readiness, requisitions, handoff, and customer submission support</span></div>
           </div>
         </div>
       </div>
@@ -933,11 +908,11 @@
 
     <section>
       <div class="wrap section-grid">
-        <div class="section-label">Problem</div>
+        <div class="section-label">Challenge</div>
         <article class="panel">
-          <h2>The engineering challenge</h2>
-          <p>The core challenge was turning a highly manual, precision technician workflow into a feasible automated workcell while preserving process control, repeatability, and system-level reliability.</p>
-          <p>The program required coordinated development across robotics, mechanical hardware, electrical integration, control logic, operator interaction, procurement, verification, and reporting.</p>
+          <h2>The execution challenge</h2>
+          <p>Post-award regulated hardware execution requires careful translation of contract requirements, technical specifications, production deliverables, and First Article obligations into a plan that can actually be built, sourced, tested, inspected, documented, and released.</p>
+          <p>The challenge is not isolated design work. It is coordinating long-lead procurement, component availability, supplier quoting, BOM readiness, fixture needs, inspection planning, internal testing, third-party labs, quality review, customer submission, and production handoff without losing schedule control.</p>
         </article>
       </div>
     </section>
@@ -946,27 +921,39 @@
       <div class="wrap section-grid">
         <div class="section-label">Scope</div>
         <article class="panel">
-          <h2>My role</h2>
+          <h2>What I own</h2>
           <div class="two-col">
             <div class="mini-card">
-              <h3>Owned</h3>
-              <p>Owned broad technical execution across workcell layout, Universal Robots integration, custom CAD adaptations, subsystem selection, sensor integration, wiring and power-rating review, GUI concepts, Python-based control logic, functional verification, technical demonstrations, and internal reporting.</p>
+              <h3>Engineering Execution</h3>
+              <p>Develop and maintain the production BOM, create or update part records, initiate requisitions, resolve obsolete or unavailable components, coordinate supplier quoting, and support sourcing decisions for commercial and custom-fabricated parts.</p>
             </div>
             <div class="mini-card">
-              <h3>Collaborated With</h3>
-              <p>Worked directly under C-level leadership, briefed executive stakeholders, supported client technical interchange, and contributed to proposals, feasibility studies, internal technical reports, and monthly customer status reporting.</p>
+              <h3>Support Hardware</h3>
+              <p>When test fixtures or support hardware are required, define the need, develop the design, release the documentation, and drive procurement so testing and production readiness are not blocked.</p>
             </div>
           </div>
           <div class="chips">
-            <span class="chip">Technical Lead</span>
-            <span class="chip">Dual-Cobot Workcell</span>
-            <span class="chip">Universal Robots</span>
-            <span class="chip">Python Control Logic</span>
-            <span class="chip">System Architecture</span>
-            <span class="chip">Electromechanical Integration</span>
-            <span class="chip">Functional Verification</span>
-            <span class="chip">Executive Reporting</span>
+            <span class="chip">Post-Award Execution</span>
+            <span class="chip">Production BOM</span>
+            <span class="chip">Part Records</span>
+            <span class="chip">Requisitions</span>
+            <span class="chip">Supplier Quoting</span>
+            <span class="chip">Obsolescence Resolution</span>
+            <span class="chip">Test Fixtures</span>
+            <span class="chip">FATR</span>
+            <span class="chip">Production Handoff</span>
           </div>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap section-grid">
+        <div class="section-label">First Article</div>
+        <article class="panel">
+          <h2>First Article Test &amp; Release</h2>
+          <p>A major part of this responsibility is First Article Test &amp; Release. I break down contractual test requirements into clear procedures, draft the First Article Test Report, prepare supporting inspection documentation, and coordinate the internal and external testing required to complete the submission.</p>
+          <p>This includes determining which tests can be performed in-house, which require third-party labs, and how procurement, inspection, testing, and reporting must be sequenced to avoid delays.</p>
         </article>
       </div>
     </section>
@@ -978,22 +965,37 @@
           <h2>Approach</h2>
           <div class="timeline">
             <div class="timeline-row">
-              <div class="phase">01 · Define</div>
-              <div><h3>System architecture and workcell concept</h3><p>Helped define the architecture used to coordinate robot behavior, subsystem sequencing, operator interaction, and process flow across the dual-cobot platform.</p></div>
+              <div class="phase">01 · Interpret</div>
+              <div><h3>Contract and production requirements</h3><p>Translate customer requirements, technical specifications, deliverable expectations, and First Article obligations into an actionable engineering plan.</p></div>
             </div>
             <div class="timeline-row">
-              <div class="phase">02 · Integrate</div>
-              <div><h3>Mechanical, electrical, and robotic integration</h3><p>Drove workcell layout, Universal Robots integration, custom CAD adaptations, subsystem selection, sensor integration, wiring review, electrical setup, and power-rating evaluation.</p></div>
+              <div class="phase">02 · Structure</div>
+              <div><h3>BOM, records, requisitions, and sourcing</h3><p>Maintain the production BOM, create and update part records, initiate requisitions, resolve sourcing issues, and coordinate supplier quoting for commercial and custom-fabricated parts.</p></div>
             </div>
             <div class="timeline-row">
-              <div class="phase">03 · Implement</div>
-              <div><h3>Control logic and operator workflow</h3><p>Developed Python-based control logic and GUI concepts to coordinate robot actions, subsystem behavior, operator interaction, and process sequencing.</p></div>
+              <div class="phase">03 · Prepare</div>
+              <div><h3>Fixtures, support hardware, and test readiness</h3><p>Define fixture needs, release support hardware documentation, drive procurement, and align inspection and test preparation with First Article requirements.</p></div>
             </div>
             <div class="timeline-row">
-              <div class="phase">04 · Verify</div>
-              <div><h3>Testing, demonstrations, and reporting</h3><p>Coordinated functional verification, evaluated accuracy, precision, cycle time, and system performance, and supported demonstrations, executive briefings, client reporting, and technical documentation.</p></div>
+              <div class="phase">04 · Execute</div>
+              <div><h3>Testing, reporting, and submission package</h3><p>Draft procedures, prepare the First Article Test Report, coordinate internal and external testing, and package the documentation required for customer and quality review.</p></div>
+            </div>
+            <div class="timeline-row">
+              <div class="phase">05 · Handoff</div>
+              <div><h3>Production readiness and release</h3><p>Revise the production BOM, identify long-lead risks, prepare production requisitions, and coordinate with Quality, Manufacturing Engineering, and Shipping to support customer submission and production handoff.</p></div>
             </div>
           </div>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap section-grid">
+        <div class="section-label">Review</div>
+        <article class="panel">
+          <h2>Customer and DCMA support</h2>
+          <p>As First Article completion approaches, I support customer-facing submission activities and help transition the program toward production readiness. I also support in-person DCMA review of completed First Article hardware and final reports alongside Quality.</p>
+          <p>This requires the engineering package, hardware condition, inspection evidence, test results, and report structure to align before formal review, reducing avoidable churn at the point of customer or government inspection.</p>
         </article>
       </div>
     </section>
@@ -1003,9 +1005,9 @@
         <div class="section-label">Result</div>
         <article class="panel">
           <h2>Outcome</h2>
-          <p>The program resulted in a feasible commercialized prototype platform that demonstrated the viability of the automation approach. The workcell reduced manual effort, increased throughput, and showed a path toward improved repeatability and process control for precision technician workflows.</p>
+          <p>The result is a controlled path from contract award through First Article approval and production release. My work connects engineering, procurement, suppliers, test labs, quality, manufacturing, and shipping into a single execution flow for regulated hardware programs.</p>
           <div class="callout" style="margin-top: 22px;">
-            <p><strong>Confidentiality note:</strong> customer, product, export-controlled, and proprietary implementation details are intentionally generalized while still showing scope, responsibility, and engineering judgment.</p>
+            <p><strong>Confidentiality note:</strong> specific program names, customer details, part numbers, product details, and controlled technical information are intentionally generalized because this work supports regulated electromechanical hardware programs.</p>
           </div>
         </article>
       </div>
@@ -1015,8 +1017,8 @@
       <div class="wrap">
         <article class="next-card">
           <div>
-            <h2>More projects</h2>
-            <p>Return to the main portfolio to view additional engineering projects across regulated hardware, robotics R&amp;D, automation, and test/release execution.</p>
+            <h2>More work</h2>
+            <p>Return to the main portfolio to view additional work across robotics R&amp;D, regulated hardware design, manufacturing execution, automation, and test/release support.</p>
           </div>
           <a class="button primary" href="index.html#projects">All Projects</a>
         </article>
@@ -1036,44 +1038,46 @@
 
     const menuToggle = document.querySelector(".menu-toggle");
     const siteMenu = document.getElementById("site-menu");
-    const projects = document.querySelector(".nav-projects");
+    const projectsMenu = document.querySelector(".projects-menu");
     const projectsTrigger = document.querySelector(".projects-trigger");
 
-    function closeProjects() {
-      if (!projects || !projectsTrigger) return;
-      projects.classList.remove("open");
-      projectsTrigger.setAttribute("aria-expanded", "false");
-    }
-
     function closeMenu() {
-      if (!menuToggle || !siteMenu) return;
-      menuToggle.setAttribute("aria-expanded", "false");
-      siteMenu.classList.remove("open");
-      closeProjects();
+      if (menuToggle && siteMenu) {
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.setAttribute("aria-label", "Open navigation");
+        siteMenu.classList.remove("open");
+      }
+      if (projectsMenu && projectsTrigger) {
+        projectsMenu.classList.remove("open");
+        projectsTrigger.setAttribute("aria-expanded", "false");
+      }
     }
 
     if (menuToggle && siteMenu) {
       menuToggle.addEventListener("click", () => {
-        const isOpen = menuToggle.getAttribute("aria-expanded") === "true";
-        menuToggle.setAttribute("aria-expanded", String(!isOpen));
-        siteMenu.classList.toggle("open", !isOpen);
+        const isOpen = siteMenu.classList.toggle("open");
+        menuToggle.setAttribute("aria-expanded", String(isOpen));
+        menuToggle.setAttribute("aria-label", isOpen ? "Close navigation" : "Open navigation");
+      });
+
+      siteMenu.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", closeMenu);
       });
     }
 
-    if (projects && projectsTrigger) {
+    if (projectsMenu && projectsTrigger) {
       projectsTrigger.addEventListener("click", (event) => {
         event.stopPropagation();
-        const isOpen = projects.classList.toggle("open");
+        const isOpen = projectsMenu.classList.toggle("open");
         projectsTrigger.setAttribute("aria-expanded", String(isOpen));
       });
     }
 
-    document.querySelectorAll(".nav-links a, .nav-actions a").forEach((link) => {
-      link.addEventListener("click", closeMenu);
-    });
-
     document.addEventListener("click", (event) => {
-      if (projects && !projects.contains(event.target)) closeProjects();
+      if (projectsMenu && !projectsMenu.contains(event.target)) {
+        projectsMenu.classList.remove("open");
+        if (projectsTrigger) projectsTrigger.setAttribute("aria-expanded", "false");
+      }
     });
 
     document.addEventListener("keydown", (event) => {
@@ -1081,11 +1085,8 @@
     });
 
     window.addEventListener("resize", () => {
-      if (window.innerWidth > 680) {
-        if (menuToggle && siteMenu) {
-          menuToggle.setAttribute("aria-expanded", "false");
-          siteMenu.classList.remove("open");
-        }
+      if (window.innerWidth > 720) {
+        closeMenu();
       }
     });
   </script>

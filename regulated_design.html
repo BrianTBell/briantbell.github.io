@@ -940,6 +940,41 @@
       }
     }
 
+
+    /* Balanced paragraph justification for primary prose */
+    .subtitle,
+    .lede,
+    .bio-text,
+    .project-card p,
+    .about-panel p,
+    .capability-card p,
+    .resume-panel p,
+    .panel p,
+    .mini-card p,
+    .timeline-row p,
+    .next-card p {
+      text-align: justify;
+      text-justify: inter-word;
+      hyphens: auto;
+      overflow-wrap: break-word;
+    }
+
+    @media (max-width: 720px) {
+      .subtitle,
+      .lede,
+      .bio-text,
+      .project-card p,
+      .about-panel p,
+      .capability-card p,
+      .resume-panel p,
+      .panel p,
+      .mini-card p,
+      .timeline-row p,
+      .next-card p {
+        text-align: left;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -968,7 +1003,7 @@
             <div class="projects-menu" id="projects-menu">
               <a href="cobot.html">Cobot Workcell</a>
               <a href="regulated_design.html">Regulated Design</a>
-              <a href="index.html#projects">Regulated Manufacturing</a>
+              <a href="regulated_manufacturing.html">Regulated Manufacturing</a>
             </div>
           </div>
 

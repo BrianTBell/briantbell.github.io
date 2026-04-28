@@ -1146,6 +1146,126 @@
       }
     }
 
+
+    /* Compact project cards on tablet and mobile widths.
+       This override keeps the full desktop layout intact, but removes the
+       fixed vertical card heights once the project grid collapses. */
+    @media (max-width: 1000px) {
+      #projects {
+        padding: 54px 0;
+      }
+
+      .project-grid {
+        gap: 14px;
+      }
+
+      .project-card,
+      .project-card.featured {
+        min-height: 0;
+        height: auto;
+        padding: 26px;
+        justify-content: flex-start;
+      }
+
+      .project-card.featured {
+        grid-row: auto;
+      }
+
+      .project-card h3,
+      .project-card:not(.featured) h3 {
+        margin: 18px 0 10px;
+        font-size: clamp(1.75rem, 3.8vw, 2.35rem);
+        line-height: 1.02;
+      }
+
+      .project-card p {
+        font-size: 1rem;
+        line-height: 1.52;
+      }
+
+      .chips {
+        margin-top: 20px;
+        gap: 7px;
+      }
+    }
+
+    @media (max-width: 720px) {
+      #projects {
+        padding: 44px 0;
+      }
+
+      .project-grid {
+        gap: 12px;
+      }
+
+      .project-card,
+      .project-card.featured {
+        min-height: 0;
+        height: auto;
+        padding: 22px;
+        border-radius: 26px;
+        justify-content: flex-start;
+      }
+
+      .project-card h3,
+      .project-card:not(.featured) h3 {
+        margin: 16px 0 10px;
+        font-size: clamp(1.6rem, 9vw, 2.15rem);
+        line-height: 1.04;
+      }
+
+      .project-card p {
+        font-size: 0.98rem;
+        line-height: 1.5;
+      }
+
+      .chips {
+        margin-top: 16px;
+        gap: 7px;
+      }
+
+      .chip {
+        min-height: 29px;
+        padding: 0 10px;
+        font-size: 0.8rem;
+      }
+    }
+
+
+    /* Balanced paragraph justification for primary prose */
+    .subtitle,
+    .lede,
+    .bio-text,
+    .project-card p,
+    .about-panel p,
+    .capability-card p,
+    .resume-panel p,
+    .panel p,
+    .mini-card p,
+    .timeline-row p,
+    .next-card p {
+      text-align: justify;
+      text-justify: inter-word;
+      hyphens: auto;
+      overflow-wrap: break-word;
+    }
+
+    @media (max-width: 720px) {
+      .subtitle,
+      .lede,
+      .bio-text,
+      .project-card p,
+      .about-panel p,
+      .capability-card p,
+      .resume-panel p,
+      .panel p,
+      .mini-card p,
+      .timeline-row p,
+      .next-card p {
+        text-align: left;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -1174,7 +1294,7 @@
             <div class="projects-menu" id="projects-menu">
               <a href="cobot.html">Cobot Workcell</a>
               <a href="regulated_design.html">Regulated Design</a>
-              <a href="index.html#projects">Regulated Manufacturing</a>
+              <a href="regulated_manufacturing.html">Regulated Manufacturing</a>
             </div>
           </div>
 
@@ -1257,7 +1377,7 @@
 
           <article class="project-card">
             <div>
-              <span class="tag gray">NPI / Hardware</span>
+              <span class="tag gray">R&amp;D - NPI / Hardware</span>
               <h3>Regulated Design </h3>
               <p>Led design, redesign, and prototyping of regulated defense electromechanical hardware as lead engineer and primary mechanical owner. Owned enclosures, assemblies, mechanisms, fixtures, subsystem integration, supplier coordination, procurement, prototype builds, troubleshooting, and verification support. Created and maintained SolidWorks models, drawings, MBOMs, ECNs, controlled release documentation, and production handoff packages.</p>
             </div>
@@ -1274,13 +1394,14 @@
             <div>
               <span class="tag orange">Automation</span>
               <h3>Engineering Data Processing Workflows</h3>
-              <p>Built Python/VBA automation tools to parse weather-station and octave-band noise datasets, turning large raw measurements into filterable, compliance-focused engineering analysis.</p>
+              <p>I own post-award execution for regulated electromechanical hardware programs in an AS9100 environment. I translate contract and First Article requirements into BOMs, sourcing plans, test procedures, FATRs, release documentation, and production handoff packages.</p>
             </div>
             <div class="chips">
-              <span class="chip">Python</span>
-              <span class="chip">VBA</span>
-              <span class="chip">Excel</span>
-              <span class="chip">Compliance Analysis</span>
+              <span class="chip">First Article</span>
+              <span class="chip">ERP/BOM Management</span>
+              <span class="chip">Requirements Breakdown</span>
+              <span class="chip">Release Documentation</span>
+              <span class="chip">Production Handoff</span>
             </div>
           </article>
         </div>
@@ -1291,65 +1412,51 @@
       <div class="wrap about-grid">
         <article class="about-panel dark">
           <p class="eyebrow">About Me</p>
-          <h2>Mechanical engineering with software fluency.</h2>
-          <p>I’m strongest where hardware programs are ambiguous, multidisciplinary, and execution-heavy: translating requirements into physical systems, building prototypes, testing them rigorously, and carrying the design through controlled release.</p>
+          <h2>Mechanical engineering with R&D execution depth.</h2>
+          <p>I’m strongest where hardware programs are ambiguous, multidisciplinary, and technically undefined. My work sits at the intersection of concept development, electromechanical design, prototyping, automation, test planning, and controlled release.</p>
+          <br>
+          <p>I’ve led and executed work across commercial cobot R&D, regulated electromechanical hardware, and post-award manufacturing release. That experience has made me comfortable owning technical execution: defining the system, building the hardware, writing the control logic, coordinating suppliers, planning verification, briefing stakeholders, and driving the work toward a documented, production-ready outcome.</p>
         </article>
 
         <article class="about-panel">
-          <p class="eyebrow">How I Work</p>
+          <p class="eyebrow">Where I Add Value</p>
+
           <div class="process">
             <div class="process-row">
-              <div class="step">01 · Define</div>
-              <div><h3>Break down requirements</h3><p>Convert customer, contract, and product needs into engineering deliverables, build plans, verification tasks, and schedule risk.</p></div>
+              <div class="step">01 · R&D Systems</div>
+              <div>
+                <h3>Turning undefined concepts into feasible platforms</h3>
+                <p>I define system architecture, process flow, workcell layout, subsystem needs, and early technical direction for ambiguous electromechanical R&D programs.</p>
+              </div>
             </div>
+
             <div class="process-row">
-              <div class="step">02 · Build</div>
-              <div><h3>Design, source, prototype</h3><p>Move between CAD, drawings, supplier interchange, MBOM structure, hands-on integration, and troubleshooting.</p></div>
+              <div class="step">02 · Automation</div>
+              <div>
+                <h3>Bridging hardware with control logic</h3>
+                <p>I develop Python-based control logic, robot communication, GUI concepts, sensor integration, and system sequencing needed to make automated hardware behave as intended.</p>
+              </div>
             </div>
+
             <div class="process-row">
-              <div class="step">03 · Verify</div>
-              <div><h3>Create test evidence</h3><p>Plan and document functional, electromechanical, environmental, and reliability testing for controlled engineering decisions.</p></div>
+              <div class="step">03 · Hardware Execution</div>
+              <div>
+                <h3>Making designs buildable and real</h3>
+                <p>I own the mechanical and electromechanical path from CAD, drawings, fixtures, interfaces, sourcing, and prototype builds through hands-on integration and troubleshooting.</p>
+              </div>
             </div>
+
             <div class="process-row">
-              <div class="step">04 · Release</div>
-              <div><h3>Close the loop</h3><p>Drive ECNs, SAP coordination, item masters, MBOM updates, production readiness, and handoff closure.</p></div>
+              <div class="step">04 · Regulated Release</div>
+              <div>
+                <h3>Driving programs toward approved hardware</h3>
+                <p>I carry regulated programs through requirements breakdown, ERP/BOM setup, First Article planning, test documentation, ECNs, customer-facing review, and production handoff.</p>
+              </div>
             </div>
           </div>
         </article>
       </div>
     </section>
-
-    <section id="capabilities">
-      <div class="wrap">
-        <div class="section-head">
-          <div>
-            <p class="eyebrow">Capabilities</p>
-            <h2>Where I fit</h2>
-          </div>
-          <p class="section-note">Best aligned with project engineering, NPI, robotics automation, test/verification, and production transition work.</p>
-        </div>
-
-        <div class="capability-grid">
-          <article class="capability-card">
-            <h3>Program Execution</h3>
-            <p>NPI, Gantt tracking, executive reporting, requirements breakdown, customer interchange.</p>
-          </article>
-          <article class="capability-card">
-            <h3>Test &amp; Verification</h3>
-            <p>FATR planning, test procedures, electrical verification, environmental testing, reporting.</p>
-          </article>
-          <article class="capability-card">
-            <h3>Design &amp; Release</h3>
-            <p>SolidWorks, drawings, MBOMs, ECNs, SAP workflows, supplier coordination.</p>
-          </article>
-          <article class="capability-card">
-            <h3>Automation</h3>
-            <p>Python, URScript, RTDE, Isaac Sim, data processing, Applied AI as a development tool.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
     <section id="resume">
       <div class="wrap">
         <article class="resume-panel">

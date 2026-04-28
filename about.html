@@ -669,6 +669,41 @@
       }
     }
 
+
+    /* Balanced paragraph justification for primary prose */
+    .subtitle,
+    .lede,
+    .bio-text,
+    .project-card p,
+    .about-panel p,
+    .capability-card p,
+    .resume-panel p,
+    .panel p,
+    .mini-card p,
+    .timeline-row p,
+    .next-card p {
+      text-align: justify;
+      text-justify: inter-word;
+      hyphens: auto;
+      overflow-wrap: break-word;
+    }
+
+    @media (max-width: 720px) {
+      .subtitle,
+      .lede,
+      .bio-text,
+      .project-card p,
+      .about-panel p,
+      .capability-card p,
+      .resume-panel p,
+      .panel p,
+      .mini-card p,
+      .timeline-row p,
+      .next-card p {
+        text-align: left;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -697,7 +732,7 @@
             <div class="projects-menu" id="projects-menu">
               <a href="cobot.html">Cobot Workcell</a>
               <a href="regulated_design.html">Regulated Design</a>
-              <a href="index.html#projects">Regulated Manufacturing</a>
+              <a href="regulated_manufacturing.html">Regulated Manufacturing</a>
             </div>
           </div>
 
@@ -738,6 +773,14 @@
           <strong>Brian Bell</strong>
           <span>Mechanical Engineer &amp; Project Engineer · Tampa, Florida</span>
         </div>
+        <div class="quick-facts" aria-label="Quick facts">
+          <div class="fact-row"><span>Focus</span><span>Regulated Hardware · Robotics R&amp;D</span></div>
+          <div class="fact-row"><span>Strength</span><span>Requirements → Test → Release</span></div>
+          <div class="fact-row"><span>Tools</span><span>SolidWorks · Python · UR · Isaac Sim</span></div>
+          <div class="fact-row"><span>Location</span><span>Tampa, FL</span></div>
+        </div>
+        
+      </section>
       </section>
 
       <section class="bio-card" aria-label="About Brian Bell">
@@ -745,22 +788,18 @@
 
         <div class="bio-content">
           <h1>About Me</h1>
-          <p class="bio-text">
-            I’m a mechanical engineer focused on regulated electromechanical hardware, robotics R&amp;D, test and verification, and production transition. I’m strongest where the work is ambiguous, multidisciplinary, and execution-heavy: translating requirements into physical systems, building prototypes, testing them rigorously, and carrying the design through controlled release.
-          </p>
+          <p class="bio-text">I'm from Baltimore, Maryland. I moved to Brisbane, Australia for my undergraduate degree, graduating with a 7.0 GPA — a Bachelor of Engineering (Honours, Mechanical) from Queensland University of Technology — where I developed a strong passion for coding, FEA simulation, and CAD.</p>
+          <br>
+          <p class="bio-text">I later moved to Tampa, Florida, where I began working as a mechanical engineer in the defense and aerospace sector, applying my experience to robotics — an area I've become really passionate about.</p>
+          <br>
+          <p class="bio-text">I fervently believe in delivering high-quality results and continuously improving my skills and knowledge. I look forward to collaborating with a dynamic team on innovative projects that challenge my abilities.</p>
+          <br>
+          <p class="bio-text">Open to mechanical engineering opportunities in the Tampa Bay area.</p>
           <div class="bio-actions">
             <a class="button primary" href="index.html#projects">View Projects</a>
             <a class="button" href="Brian%20Bell%20-%20Engineering%20Resume.pdf">Resume</a>
           </div>
         </div>
-
-        <div class="quick-facts" aria-label="Quick facts">
-          <div class="fact-row"><span>Focus</span><span>Regulated Hardware · Robotics R&amp;D</span></div>
-          <div class="fact-row"><span>Strength</span><span>Requirements → Test → Release</span></div>
-          <div class="fact-row"><span>Tools</span><span>SolidWorks · Python · UR · Isaac Sim</span></div>
-          <div class="fact-row"><span>Location</span><span>Tampa, FL</span></div>
-        </div>
-      </section>
     </div>
   </main>
 
