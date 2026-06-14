@@ -9,7 +9,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png" />
   <link rel="shortcut icon" href="images/favicon/favicon.ico" />
   <link rel="manifest" href="images/favicon/manifest.json" />
-  <title>Project Title | Brian Bell</title>
+  <title>STOA | Brian Bell</title>
   <link rel="stylesheet" href="assets/project.css" />
 </head>
 <body>
@@ -51,23 +51,23 @@
         <a class="back-link" href="index.html#projects">&larr; Back to projects</a>
 
         <div class="hero-copy reveal">
-          <span class="tag">Project Category</span>
-          <h1>Project Title Goes Here</h1>
-          <p class="lede">A concise summary of what was built, why it mattered, and the engineering responsibility you owned.</p>
+          <span class="tag green">Personal · Full-Stack</span>
+          <h1>STOA - Living Atlas</h1>
+          <p class="lede">A research tool structured as an emergent knowledge graph. Upload a technical paper to STOA, it will parse its core information and identify the most relevant papers to guide your learning and exploration in new fields.</p>
         </div>
 
         <div class="project-meta reveal reveal-delay-90" aria-label="Project details">
           <div class="meta-item">
             <span class="meta-label">Role</span>
-            <span class="meta-value">Technical Lead</span>
+            <span class="meta-value">Creator, Technical Lead</span>
           </div>
           <div class="meta-item">
             <span class="meta-label">Timeline</span>
-            <span class="meta-value">2025 to Present</span>
+            <span class="meta-value">2026 to Present</span>
           </div>
           <div class="meta-item">
             <span class="meta-label">Domain</span>
-            <span class="meta-value">Electromechanical Systems</span>
+            <span class="meta-value">AI/ML Infrastructure, Knowledge Graphs</span>
           </div>
           <div class="meta-item">
             <span class="meta-label">Status</span>
@@ -87,45 +87,16 @@
         <!-- TEXT MODULE -->
         <section class="content-module text-module reveal">
           <p class="module-label">Overview</p>
-          <h2>A clear section heading goes here.</h2>
-          <p>Use a text module for the project story, engineering context, design decisions, challenges, results, or lessons learned. Keep paragraphs focused and let the page breathe.</p>
-          <p>Add as many paragraphs as the section needs. You can duplicate this entire module whenever the project moves to a new idea.</p>
-
-          <!-- Optional subheading and list. Delete these when they are not needed. -->
-          <h3>Optional supporting detail</h3>
-          <ul>
-            <li>A concise technical detail, responsibility, or requirement.</li>
-            <li>A design constraint, tool, test method, or measurable result.</li>
-          </ul>
-        </section>
-
-        <!-- IMAGE MODULE
-             To use a real image, uncomment the <img> and delete .image-placeholder.
-             Change object-fit in .image-module img to "contain" for diagrams or screenshots.
-        -->
-        <figure class="content-module media-module image-module reveal">
-          <div class="media-surface">
-            <!--
-            <img
-              src="images/project-name/project-image.jpg"
-              alt="Describe the project image for visitors using screen readers"
-            />
-            -->
-            <div class="image-placeholder">
-              <div class="image-placeholder-inner">
-                <div class="placeholder-mark" aria-hidden="true">&#9635;</div>
-                <p>Project photo, CAD render, diagram, test setup, or software screenshot</p>
-              </div>
-            </div>
-          </div>
-          <figcaption>Optional image caption explaining what the visitor is looking at.</figcaption>
-        </figure>
-
-        <!-- TEXT MODULE: duplicate this block wherever another written section is useful. -->
-        <section class="content-module text-module reveal">
-          <p class="module-label">Design and execution</p>
-          <h2>Use the modules in whatever order tells the story best.</h2>
-          <p>A project might use text, then an image, then more text. Another might lead with a demonstration video. The layout does not require a fixed case-study structure.</p>
+          <h2>The Concept</h2>
+          <p>I'd done research through college, and now its a core part of my job. When I approach new technical domains I find it hard to quickly get my bearings. I wanted a tool that could help me quickly navigate a pile of research papers in a field I don't have much knowledge of. This project is my solution to that.</p>
+          <p>I tried to keep the underlying solution simple:</p>
+          <ol>
+            <li>Upload research paper to STOA</li>
+            <li>STOA reads the paper and parses key information (core concepts, metadata, and embedding via sentence-transformer)</li>
+            <li>STOA stores this paper and its information as a node in a graph database.
+            <li>STOA derives the three "most similar" papers based on the embedding vectors in the DB.
+            <li>STOA presents the updated graph, paper summaries, and guidance / reading direction.  
+          </ol>
         </section>
 
         <!-- YOUTUBE VIDEO MODULE
@@ -133,31 +104,38 @@
              Example: youtube.com/watch?v=dQw4w9WgXcQ uses dQw4w9WgXcQ.
         -->
         <section class="content-module media-module video-module reveal" aria-label="Project video">
+          <h2>Quick Demo</h2>
           <div class="media-surface video-frame">
             <iframe
-              src="https://www.youtube-nocookie.com/embed/VIDEO_ID"
-              title="Project demonstration video"
+              src="https://www.youtube.com/embed/QNk4uIFE9eA?si=IFuMpk8bHJ9HNddr"
+              title="STOA - Project Overview Video"
               loading="lazy"
               referrerpolicy="strict-origin-when-cross-origin"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowfullscreen
             ></iframe>
           </div>
-          <p class="video-caption">Optional video caption describing the demonstration or test.</p>
+          <p class="video-caption">A quick overview / demonstration talking about and walking through the project.</p>
         </section>
-
-        <!-- Optional visual pause between groups of modules. -->
-        <div class="module-divider" aria-hidden="true"></div>
 
         <!-- TEXT MODULE -->
         <section class="content-module text-module reveal">
-          <p class="module-label">Outcome</p>
-          <h2>Close with the result that mattered.</h2>
-          <p>Summarize the outcome, validation, delivery milestone, or engineering value. Proprietary details can stay generalized while your ownership and judgment remain clear.</p>
+          <h2>Outcomes & Under the Hood</h2>
+          <h3>Learning</h3>
+          <p>I'd say there are three main topics this project helped me learn about: Embeddings, Graph Theory, and bridging front end & backend.</p>
+          <p><b>Embeddings -</b> I read some chapters from Rashka's 'Learn to build and LLM from scratch' in parallel with this project. This gave me a great conceptual understanding of what's actually going on and how I can quantifiably relate 'like' entities to one another.</p>
+          <p>in the backend I used a sentence-transform library to convert the ingested contents of a paper into one of these embeddings. Neo4j is given this embedding vector as an attribute with any new node (paper), and its told to use it as a queryable vector. On every new papers ingestion, similarity scores are queried from Neo4j which are used to reweigh top 3 nearest neighbors of each paper in close proximity to the new paper.</p>
+          <p>Something that is difficult to tune here is the cutoff for similarity scores. As I'm writing this I have it set at 0.65. I've only uploaded 20-30 papers, but its seems this is low enough to allow some cross-domain linking in technical region that aren't sparsely populated. Essentially, I'm trying to allow areas with few papers to create adequate, or semi-accurate preliminary links which can be replaced with stronger links as new papers are ingested. I'd just like things to lean slightly towards connections even when regions are sparse, rather than a bunch of unconnected nodes floating in space. I think this is something I'll need to continually play with as I add papers</p>
+          <p><b>AI models -</b> I don't really have great hardware for running models at home, so my quick fix was a Claude API. I didn't want to blow money on tokens, so I kind of settled by margin decision comparing model training cap and cost. This was interesting because it was the first time I deeply compared models and tuned prompts with cost and accuracy being the main factors.</p>
+          <p>The long and short is, I was jumping back and forth between haiku and sonnet. I tried both with basic ingestion prompts, compared average price across a few papers. I got great results with sonnet but I wanted to lean towards haiku because it was averaging like four cents per paper instead of sonnets 10 cents. I prompt iteration / improvement process with haiku was probably the most iterative task in this project. At times it would pull content that wasn't necessarily the papers core concepts. I think it was kind of hitting a knowledge wall, my training papers had some technical content that's pretty niche, and for the lay reader pretty impenetrable. Eventually it got to a point where I felt it was profiling papers into finger prints which I could call, good quality, not excellent. I couldn't push much higher without diminishing returns, or straight decreased performance from prompt bloat.</p>
+          <p>As it stands I'm running with haiku. Its called for paper screening, and ingestion, and the whole process costs me about 2 cents per paper. I've spend a little under a dollar putting this whole project together.</p>
+          <p><b>Frontend to Backend - </b> I've done a lot of front end stuff in the past, and some backend with relational DB's, but this is the first time I truly bridged front and back for a full stack web app.</p>
+          <p>I learned about how HTML is translated to python info is actually passed around via ASGI protocol. I read a fair bit into the whole pipeline, from HTML info through socket, to uvicorn converting it into ASGI, FastAPI reading [scope], pulling more info through [request] (like PDF contents), handling backend and returning through [send]. This was not confusing, I just never knew how it worked, so it was interesting to read. 
+          <p>I'm also impressed with how simple fast API and uvicorn are. In the past I used apache and PHP to talk to SQL servers, which was way more confusing to me than FastAPsI and Uvicorn. Glad to have gotten a better feel for it.</p>
         </section>
       </div>
     </div>
-
+    
     <!-- PROJECT NAVIGATION: replace the title and href with the next project, or keep All Projects. -->
     <section class="project-end">
       <div class="wrap">
