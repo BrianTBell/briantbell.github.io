@@ -219,6 +219,20 @@
       max-width: 960px;
     }
 
+    .hero-title {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: nowrap;
+      margin: 22px 0 28px;
+    }
+
+    .hero-title h1 {
+      flex: 0 0 auto;
+      margin: 0;
+      white-space: nowrap;
+    }
+
     .tag {
       width: fit-content;
       min-height: 31px;
@@ -256,6 +270,13 @@
       line-height: 0.9;
       letter-spacing: -0.086em;
       font-weight: 760;
+    }
+
+    .hero-title-logo {
+      width: clamp(70px, 10vw, 110px);
+      height: auto;
+      flex: 0 0 auto;
+      object-fit: contain;
     }
 
     .lede {
@@ -627,6 +648,20 @@
 
       h1 {
         font-size: clamp(3.55rem, 17vw, 5.2rem);
+      }
+
+      .hero-title {
+        gap: 14px;
+        flex-wrap: wrap;
+        margin: 22px 0 24px;
+      }
+
+      .hero-title h1 {
+        white-space: normal;
+      }
+
+      .hero-title-logo {
+        width: clamp(58px, 18vw, 82px);
       }
 
       .project-meta {
